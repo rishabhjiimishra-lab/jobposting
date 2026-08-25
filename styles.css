@@ -199,7 +199,7 @@ h3 {
   display: grid;
   aspect-ratio: 16 / 9;
   min-height: 360px;
-  padding: 28px;
+  padding: 32px;
   align-content: end;
   overflow: hidden;
   border-radius: 8px;
@@ -225,8 +225,9 @@ h3 {
 
 .video-meta {
   display: grid;
-  gap: 8px;
+  gap: 10px;
   color: white;
+  max-width: min(100%, 520px);
 }
 
 .video-meta span {
@@ -237,8 +238,8 @@ h3 {
 
 .video-meta strong {
   max-width: 420px;
-  font-size: 1.8rem;
-  line-height: 1.1;
+  font-size: clamp(1.15rem, 3vw, 1.8rem);
+  line-height: 1.18;
 }
 
 .section,
@@ -263,7 +264,8 @@ h3 {
 
 .video-card {
   display: grid;
-  gap: 16px;
+  grid-template-rows: auto auto auto 1fr;
+  gap: 14px;
   padding: 18px;
   background: white;
   border: 1px solid var(--line);
@@ -279,19 +281,6 @@ h3 {
   color: white;
   font-size: 2rem;
   overflow: hidden;
-}
-
-.thumbnail::after {
-  position: absolute;
-  right: 12px;
-  bottom: 10px;
-  padding: 4px 7px;
-  color: white;
-  background: rgba(25, 26, 31, 0.82);
-  border-radius: 4px;
-  content: "YouTube";
-  font-size: 0.72rem;
-  font-weight: 800;
 }
 
 .thumbnail.red {
@@ -317,6 +306,7 @@ h3 {
 
 .video-card p:last-child {
   margin: 0;
+  min-height: 54px;
 }
 
 .jobs-band {
@@ -467,7 +457,7 @@ h3 {
 
   .video-frame {
     min-height: auto;
-    padding: 22px;
+    padding: 20px;
   }
 
   .video-grid {
