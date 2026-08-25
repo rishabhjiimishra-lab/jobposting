@@ -107,7 +107,7 @@ a {
   gap: 48px;
   align-items: center;
   min-height: calc(100vh - 72px);
-  padding: 56px 5vw 72px;
+  padding: 64px 6vw 80px;
 }
 
 .eyebrow {
@@ -156,7 +156,7 @@ h3 {
 
 .hero-text {
   max-width: 660px;
-  margin: 24px 0 0;
+  margin: 26px 0 0;
   font-size: 1.2rem;
 }
 
@@ -197,8 +197,9 @@ h3 {
 .video-frame {
   position: relative;
   display: grid;
-  min-height: 460px;
-  padding: 24px;
+  aspect-ratio: 16 / 9;
+  min-height: 360px;
+  padding: 28px;
   align-content: end;
   overflow: hidden;
   border-radius: 8px;
@@ -224,7 +225,7 @@ h3 {
 
 .video-meta {
   display: grid;
-  gap: 6px;
+  gap: 8px;
   color: white;
 }
 
@@ -243,7 +244,7 @@ h3 {
 .section,
 .about-band,
 .jobs-band {
-  padding: 78px 5vw;
+  padding: 82px 6vw;
 }
 
 .section-heading {
@@ -262,20 +263,35 @@ h3 {
 
 .video-card {
   display: grid;
-  gap: 14px;
-  padding: 14px;
+  gap: 16px;
+  padding: 18px;
   background: white;
   border: 1px solid var(--line);
   border-radius: 8px;
 }
 
 .thumbnail {
+  position: relative;
   display: grid;
   aspect-ratio: 16 / 9;
   place-items: center;
   border-radius: 6px;
   color: white;
   font-size: 2rem;
+  overflow: hidden;
+}
+
+.thumbnail::after {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  padding: 4px 7px;
+  color: white;
+  background: rgba(25, 26, 31, 0.82);
+  border-radius: 4px;
+  content: "YouTube";
+  font-size: 0.72rem;
+  font-weight: 800;
 }
 
 .thumbnail.red {
@@ -323,9 +339,9 @@ h3 {
 .job-card {
   display: grid;
   grid-template-columns: minmax(220px, 0.9fr) minmax(260px, 1fr) auto;
-  gap: 20px;
+  gap: 24px;
   align-items: center;
-  padding: 20px;
+  padding: 24px;
   background: white;
   border: 1px solid #cfe5e2;
   border-radius: 8px;
@@ -400,7 +416,7 @@ h3 {
 .contact-section {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.6fr);
-  gap: 36px;
+  gap: 44px;
   align-items: start;
 }
 
@@ -410,7 +426,7 @@ h3 {
 }
 
 .contact-panel a {
-  padding: 16px;
+  padding: 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: white;
@@ -446,11 +462,12 @@ h3 {
 
   .hero {
     min-height: auto;
-    padding-top: 42px;
+    padding: 44px 5vw 64px;
   }
 
   .video-frame {
-    min-height: 320px;
+    min-height: auto;
+    padding: 22px;
   }
 
   .video-grid {
