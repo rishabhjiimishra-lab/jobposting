@@ -103,11 +103,12 @@ a {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.86fr);
-  gap: 48px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.8fr);
+  gap: clamp(28px, 5vw, 64px);
   align-items: center;
   min-height: calc(100vh - 72px);
   padding: 64px 6vw 80px;
+  overflow: hidden;
 }
 
 .eyebrow {
@@ -127,10 +128,10 @@ p {
 }
 
 h1 {
-  max-width: 760px;
+  max-width: 100%;
   margin: 0;
-  font-size: clamp(2.7rem, 11vw, 8.8rem);
-  line-height: 0.92;
+  font-size: clamp(2.4rem, 9vw, 7.2rem);
+  line-height: 0.95;
   white-space: nowrap;
 }
 
@@ -192,13 +193,15 @@ h3 {
 
 .featured-video {
   width: 100%;
+  min-width: 0;
 }
 
-.video-frame {
+.featured-video .video-frame {
   position: relative;
   display: grid;
   aspect-ratio: 16 / 9;
-  min-height: 360px;
+  width: 100%;
+  min-height: auto;
   padding: 32px;
   align-content: end;
   overflow: hidden;
@@ -431,6 +434,16 @@ h3 {
   border-top: 1px solid var(--line);
 }
 
+@media (max-width: 1040px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: clamp(2.7rem, 12vw, 6.5rem);
+  }
+}
+
 @media (max-width: 860px) {
   .site-header {
     flex-wrap: wrap;
@@ -443,7 +456,6 @@ h3 {
     justify-content: space-between;
   }
 
-  .hero,
   .about-band,
   .contact-section,
   .job-card {
