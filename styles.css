@@ -130,9 +130,6 @@ a {
   align-items: center;
   justify-content: center;
   min-width: 118px;
-  min-height: 46px;
-  padding-inline: 22px;
-  border-radius: 999px;
   box-shadow: 0 10px 22px rgba(255, 0, 51, 0.22);
 }
 
@@ -519,7 +516,7 @@ a {
 
 .job-search button {
   flex: 0 0 auto;
-  min-width: 96px;
+  min-width: 76px;
   min-height: 48px;
   color: white;
   background: var(--ink);
@@ -529,11 +526,6 @@ a {
   font: inherit;
   font-size: 0.9rem;
   font-weight: 800;
-}
-
-.job-page-search button {
-  min-width: 118px;
-  background: linear-gradient(135deg, var(--red), #bd1744);
 }
 
 .job-search-message {
@@ -858,91 +850,6 @@ h3 {
   font-size: 0.9rem;
 }
 
-.mnc-ticker {
-  position: relative;
-  max-width: min(100%, 720px);
-  margin-top: 24px;
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-}
-
-.mnc-track {
-  display: flex;
-  width: max-content;
-  gap: 12px;
-  animation: ticker-left 14s linear infinite;
-  will-change: transform;
-}
-
-.mnc-track span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-width: 148px;
-  min-height: 44px;
-  place-items: center;
-  padding: 10px 16px;
-  color: white;
-  background: var(--logo-bg, var(--ink));
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 999px;
-  box-shadow: 0 8px 18px rgba(25, 26, 31, 0.08);
-  font-size: 0.86rem;
-  font-weight: 800;
-}
-
-.mnc-track img {
-  display: block;
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-  flex: 0 0 auto;
-  padding: 3px;
-  background: white;
-  border-radius: 50%;
-}
-
-.logo-google {
-  --logo-bg: linear-gradient(135deg, #4285f4, #34a853);
-}
-
-.logo-microsoft {
-  --logo-bg: linear-gradient(135deg, #f25022, #7fba00);
-}
-
-.logo-amazon {
-  --logo-bg: linear-gradient(135deg, #111827, #ff9900);
-}
-
-.logo-ibm {
-  --logo-bg: linear-gradient(135deg, #052fad, #4d7cff);
-}
-
-.logo-cognizant {
-  --logo-bg: linear-gradient(135deg, #1b6ef3, #00b3ff);
-}
-
-.logo-infosys {
-  --logo-bg: linear-gradient(135deg, #007cc3, #15b8ff);
-}
-
-.logo-tcs {
-  --logo-bg: linear-gradient(135deg, #486aae, #7c3aed);
-}
-
-.logo-wipro {
-  --logo-bg: linear-gradient(135deg, #341c53, #ff4f8b);
-}
-
-.logo-accenture {
-  --logo-bg: linear-gradient(135deg, #a100ff, #191a1f);
-}
-
-.logo-deloitte {
-  --logo-bg: linear-gradient(135deg, #86bc25, #111827);
-}
-
 .featured-video {
   width: 100%;
   min-width: 0;
@@ -1021,8 +928,8 @@ h3 {
 
 .video-card {
   display: grid;
-  grid-template-rows: auto auto auto;
-  gap: 10px;
+  grid-template-rows: auto auto auto 1fr;
+  gap: 14px;
   padding: 18px;
   background: white;
   border: 1px solid var(--line);
@@ -1089,6 +996,11 @@ h3 {
   text-transform: uppercase;
 }
 
+.video-card p:last-child {
+  margin: 0;
+  min-height: 54px;
+}
+
 .jobs-band {
   background: #eef7f6;
 }
@@ -1148,11 +1060,10 @@ h3 {
 .job-meta-row time {
   width: fit-content;
   padding: 6px 10px;
-  color: #9b1c1c;
-  background: #fff0d6;
-  border: 1px solid #ffbe3d;
+  color: var(--muted);
+  background: #f6f5f2;
+  border: 1px solid var(--line);
   border-radius: 999px;
-  box-shadow: 0 8px 18px rgba(255, 190, 61, 0.18);
   font-size: 0.78rem;
   font-weight: 800;
 }
@@ -1264,36 +1175,14 @@ h3 {
 
 .site-footer {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr) auto;
   align-items: center;
   gap: 24px;
   margin-top: 0;
-  padding: 58px 6vw 34px;
+  padding: 34px 6vw;
   color: #d8d8de;
   background: #191a1f;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.footer-contact {
-  display: grid;
-  grid-column: 1 / -1;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
-  gap: 44px;
-  align-items: start;
-  padding-bottom: 34px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.footer-contact h2 {
-  max-width: 850px;
-  color: white;
-  font-size: clamp(1.8rem, 4vw, 3.7rem);
-}
-
-.footer-contact p:not(.eyebrow) {
-  max-width: 720px;
-  color: #d8d8de;
-  line-height: 1.7;
 }
 
 .footer-summary {
@@ -1373,15 +1262,6 @@ h3 {
   }
 }
 
-@keyframes ticker-left {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(calc(-50% - 6px));
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1390,12 +1270,6 @@ h3 {
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
-  }
-
-  .mnc-track {
-    animation: ticker-left 18s linear infinite !important;
-    animation-duration: 18s !important;
-    animation-iteration-count: infinite !important;
   }
 }
 
@@ -1505,10 +1379,6 @@ h3 {
   }
 
   .site-footer {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-contact {
     grid-template-columns: 1fr;
   }
 
@@ -1650,25 +1520,6 @@ h3 {
     text-align: center;
   }
 
-  .job-page-search > div,
-  .job-sidebar .job-search > div {
-    flex-direction: column;
-    padding: 4px;
-    border-radius: 22px;
-  }
-
-  .job-page-search input,
-  .job-sidebar .job-search input {
-    min-height: 46px;
-    text-align: left;
-  }
-
-  .job-page-search button,
-  .job-sidebar .job-search button {
-    width: 100%;
-    min-height: 46px;
-  }
-
   .page-preview-grid {
     grid-template-columns: 1fr;
   }
@@ -1684,278 +1535,5 @@ h3 {
 
   .stats div {
     width: 100%;
-  }
-
-  .mnc-track span {
-    min-width: 132px;
-  }
-}
-
-@media (max-width: 560px) {
-  html {
-    scroll-padding-top: 150px;
-  }
-
-  body {
-    min-width: 0;
-  }
-
-  .site-header {
-    top: 8px;
-    width: calc(100% - 16px);
-    max-width: none;
-    min-height: 0;
-    margin-top: 8px;
-    padding: 8px;
-    gap: 8px;
-    border-radius: 22px;
-  }
-
-  .brand {
-    flex: 1 1 calc(100% - 112px);
-    max-width: calc(100% - 112px);
-    padding-left: 2px;
-    font-size: 0.9rem;
-  }
-
-  .brand span:last-child {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .brand-mark {
-    flex: 0 0 auto;
-    width: 32px;
-    height: 32px;
-  }
-
-  .subscribe-button {
-    flex: 0 0 auto;
-    min-width: 96px;
-    min-height: 38px;
-    padding: 9px 12px;
-    font-size: 0.84rem;
-  }
-
-  .nav {
-    order: 3;
-    width: 100%;
-    max-width: 100%;
-    gap: 3px;
-    padding: 4px;
-    overflow-x: auto;
-    border-radius: 18px;
-  }
-
-  .nav a {
-    flex: 0 0 auto;
-    min-height: 34px;
-    padding: 8px 10px;
-    font-size: 0.82rem;
-    white-space: nowrap;
-  }
-
-  .hero,
-  .page-hero,
-  .section,
-  .about-band,
-  .jobs-band,
-  .job-brief-section,
-  .latest-vlog {
-    padding-right: 16px;
-    padding-left: 16px;
-  }
-
-  .hero {
-    gap: 24px;
-    padding-top: 28px;
-    padding-bottom: 48px;
-  }
-
-  .hero-canvas {
-    right: -38%;
-    width: 100vw;
-    height: 100vw;
-  }
-
-  h1 {
-    font-size: clamp(2.1rem, 14vw, 3.4rem);
-    line-height: 1;
-  }
-
-  h2,
-  .job-brief h2,
-  .footer-contact h2 {
-    font-size: clamp(1.65rem, 9vw, 2.55rem);
-    line-height: 1.12;
-  }
-
-  .hero-text,
-  .job-brief > p:not(.eyebrow),
-  .jobs-cta p:not(.eyebrow),
-  .footer-contact p:not(.eyebrow) {
-    font-size: 0.98rem;
-    line-height: 1.6;
-  }
-
-  .hero-actions {
-    gap: 10px;
-    margin-top: 22px;
-  }
-
-  .primary-action,
-  .secondary-action,
-  .hero-actions a,
-  .jobs-cta .primary-action,
-  .section-heading .primary-action {
-    width: 100%;
-    text-align: center;
-  }
-
-  .stats {
-    gap: 10px;
-    margin-top: 24px;
-  }
-
-  .stats div {
-    min-width: 0;
-    width: 100%;
-    padding: 14px 16px;
-  }
-
-  .mnc-ticker {
-    width: 100%;
-    margin-top: 18px;
-  }
-
-  .mnc-track {
-    gap: 8px;
-  }
-
-  .mnc-track span {
-    min-width: 118px;
-    min-height: 38px;
-    padding: 8px 10px;
-    font-size: 0.76rem;
-  }
-
-  .mnc-track img {
-    width: 18px;
-    height: 18px;
-    padding: 2px;
-  }
-
-  .featured-video .video-frame {
-    min-height: 180px;
-    padding: 16px;
-  }
-
-  .video-meta {
-    gap: 7px;
-  }
-
-  .video-meta strong {
-    font-size: 1.05rem;
-  }
-
-  .play-icon {
-    width: 60px;
-    height: 60px;
-  }
-
-  .job-brief,
-  .job-search,
-  .latest-jobs-panel,
-  .video-card,
-  .job-card {
-    padding: 16px;
-  }
-
-  .job-brief-visual {
-    min-height: 145px;
-    margin-bottom: 22px;
-    font-size: clamp(1.9rem, 13vw, 3rem);
-  }
-
-  .telegram-cta {
-    margin: 22px auto 28px;
-    padding: 13px 14px;
-  }
-
-  .page-preview-card {
-    min-height: 220px;
-    padding: 18px;
-  }
-
-  .preview-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 0.72rem;
-  }
-
-  .job-shortcuts {
-    grid-template-columns: 1fr;
-  }
-
-  .topics span {
-    padding: 10px 12px;
-    font-size: 0.88rem;
-  }
-
-  .site-footer {
-    gap: 18px;
-    padding: 40px 16px 28px;
-  }
-
-  .footer-contact {
-    gap: 24px;
-    padding-bottom: 26px;
-  }
-
-  .contact-panel a {
-    min-width: 0;
-    min-height: 52px;
-    padding: 13px 14px;
-  }
-
-  .footer-links {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: 100%;
-    gap: 8px;
-  }
-
-  .footer-links a {
-    text-align: center;
-  }
-}
-
-@media (max-width: 360px) {
-  .brand {
-    max-width: calc(100% - 100px);
-    font-size: 0.84rem;
-  }
-
-  .subscribe-button {
-    min-width: 88px;
-    padding-right: 10px;
-    padding-left: 10px;
-    font-size: 0.8rem;
-  }
-
-  .nav a {
-    padding-right: 9px;
-    padding-left: 9px;
-  }
-
-  .hero,
-  .page-hero,
-  .section,
-  .about-band,
-  .jobs-band,
-  .job-brief-section,
-  .latest-vlog {
-    padding-right: 14px;
-    padding-left: 14px;
   }
 }
