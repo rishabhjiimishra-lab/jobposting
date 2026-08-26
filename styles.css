@@ -316,6 +316,31 @@ a {
   line-height: 1.7;
 }
 
+.job-shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.job-shortcuts a {
+  padding: 9px 12px;
+  color: var(--ink);
+  background: white;
+  border: 1px solid #cfe5e2;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.job-shortcuts a:hover,
+.job-shortcuts a:focus-visible {
+  color: white;
+  background: var(--teal);
+  transform: translateY(-2px);
+}
+
 .jobs-cta .primary-action {
   flex: 0 0 auto;
 }
@@ -403,6 +428,10 @@ a {
 }
 
 .job-card[hidden] {
+  display: none;
+}
+
+.job-category[hidden] {
   display: none;
 }
 
@@ -967,6 +996,15 @@ h3 {
 
   .jobs-cta .primary-action {
     width: 100%;
+    text-align: center;
+  }
+
+  .job-shortcuts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .job-shortcuts a {
     text-align: center;
   }
 

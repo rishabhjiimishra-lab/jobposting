@@ -42,12 +42,16 @@
         card.hidden = !show;
         if (show) visible += 1;
       });
+      categoriesContainer.querySelectorAll('.job-category').forEach((category) => {
+        category.hidden = ![...category.querySelectorAll('.job-card')].some((card) => !card.hidden);
+      });
       message.textContent = visible ? `${visible} job${visible === 1 ? '' : 's'} found` : 'No jobs found in this category.';
     };
 
     options.forEach((option) => option.addEventListener('click', () => applyFilter(option.dataset.filter)));
     form.addEventListener('submit', (event) => event.preventDefault());
-    applyFilter('all');
+    const requestedFilter = new URLSearchParams(window.location.search).get('category');
+    applyFilter(['all', 'private', 'government', 'work-from-home', 'bpo'].includes(requestedFilter) ? requestedFilter : 'all');
   };
 
   setupJobFilters();
