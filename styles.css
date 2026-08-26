@@ -296,6 +296,29 @@ a {
   padding-top: 64px;
 }
 
+.jobs-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  background: #eef7f6;
+}
+
+.jobs-cta h2 {
+  max-width: 720px;
+}
+
+.jobs-cta p:not(.eyebrow) {
+  max-width: 680px;
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.jobs-cta .primary-action {
+  flex: 0 0 auto;
+}
+
 .job-filters {
   display: flex;
   align-items: center;
@@ -888,6 +911,16 @@ h3 {
   .site-footer {
     align-items: start;
     flex-direction: column;
+  }
+
+  .jobs-cta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .jobs-cta .primary-action {
+    width: 100%;
+    text-align: center;
   }
 
   .job-card a {

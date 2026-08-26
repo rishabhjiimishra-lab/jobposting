@@ -1,7 +1,8 @@
 (() => {
   const setupJobFilters = () => {
     const jobsBand = document.querySelector('.jobs-band');
-    if (!jobsBand) return;
+    const categoriesContainer = jobsBand?.querySelector('.jobs-categories');
+    if (!jobsBand || !categoriesContainer) return;
 
     const form = document.querySelector('#job-filters') || (() => {
       const createdForm = document.createElement('form');
@@ -9,7 +10,7 @@
       createdForm.id = 'job-filters';
       createdForm.noValidate = true;
       createdForm.innerHTML = '<label for="job-filter">Filter jobs</label><select id="job-filter" name="job-filter"><option value="all">All jobs</option><option value="private">Private</option><option value="government">Government</option><option value="work-from-home">Work From Home</option><option value="bpo">BPO</option></select><p class="filter-message" id="filter-message" role="status" aria-live="polite"></p>';
-      jobsBand.insertBefore(createdForm, jobsBand.querySelector('.jobs-categories'));
+      jobsBand.insertBefore(createdForm, categoriesContainer);
       return createdForm;
     })();
     const select = form.querySelector('select');
