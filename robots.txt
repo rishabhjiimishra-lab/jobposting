@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rishabhjiimishra-lab.github.io/jobposting/sitemap.xml

@@ -120,7 +120,7 @@ a {
   gap: clamp(28px, 5vw, 64px);
   align-items: start;
   min-height: calc(100vh - 72px);
-  padding: 64px 6vw 80px;
+  padding: 32px 6vw 80px;
   overflow: hidden;
 }
 
@@ -185,7 +185,7 @@ a {
 }
 
 .page-hero {
-  padding: clamp(56px, 9vw, 112px) 6vw clamp(44px, 7vw, 80px);
+  padding: clamp(32px, 6vw, 72px) 6vw clamp(44px, 7vw, 80px);
   background: linear-gradient(120deg, #fff4e4 0%, var(--paper) 58%, #e7f7f5 100%);
   animation: rise-in 700ms ease-out both;
 }
@@ -298,6 +298,30 @@ a {
 
 .about-page-band {
   min-height: 440px;
+}
+
+.faq-list {
+  display: grid;
+  max-width: 860px;
+  margin-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.faq-list details {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.faq-list summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.faq-list p {
+  max-width: 700px;
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .eyebrow {
@@ -437,6 +461,8 @@ h3 {
 .about-band,
 .jobs-band {
   padding: 82px 6vw;
+  content-visibility: auto;
+  contain-intrinsic-size: 600px;
 }
 
 .section-heading {
@@ -784,7 +810,7 @@ h3 {
 
   .hero {
     min-height: auto;
-    padding: 44px 5vw 64px;
+    padding: 28px 5vw 64px;
   }
 
   .page-hero,
@@ -853,7 +879,7 @@ h3 {
   }
 
   .page-hero {
-    padding-top: 42px;
+    padding-top: 28px;
     padding-bottom: 42px;
   }
 
