@@ -6,6 +6,11 @@ ALTER TABLE organizations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE job_categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE job_sources ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "public can read active verified jobs" ON jobs;
+DROP POLICY IF EXISTS "public can read organizations for active jobs" ON organizations;
+DROP POLICY IF EXISTS "public can read published job categories" ON job_categories;
+DROP POLICY IF EXISTS "public cannot read source payloads" ON job_sources;
+
 CREATE POLICY "public can read active verified jobs"
   ON jobs FOR SELECT
   USING (visibility = 'published' AND status = 'verified' AND (application_last_date IS NULL OR application_last_date >= CURRENT_DATE));

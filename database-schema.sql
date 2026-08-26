@@ -4,12 +4,12 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
-CREATE TYPE job_visibility AS ENUM ('draft', 'published', 'archived');
-CREATE TYPE job_status AS ENUM ('needs_review', 'verified', 'expired', 'source_unavailable');
-CREATE TYPE source_type AS ENUM ('api', 'rss', 'json', 'public_webpage', 'permitted_feed');
-CREATE TYPE run_status AS ENUM ('running', 'succeeded', 'failed', 'partial');
+DO $$ BEGIN CREATE TYPE job_visibility AS ENUM ('draft', 'published', 'archived'); EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN CREATE TYPE job_status AS ENUM ('needs_review', 'verified', 'expired', 'source_unavailable'); EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN CREATE TYPE source_type AS ENUM ('api', 'rss', 'json', 'public_webpage', 'permitted_feed'); EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN CREATE TYPE run_status AS ENUM ('running', 'succeeded', 'failed', 'partial'); EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
-CREATE TABLE organizations (
+CREATE TABLE IF NOT EXISTS organizations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   kind TEXT NOT NULL DEFAULT 'private',
@@ -19,7 +19,7 @@ CREATE TABLE organizations (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE TABLE sources (
+CREATE TABLE IF NOT EXISTS sources (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   source_url TEXT NOT NULL UNIQUE,
@@ -36,7 +36,7 @@ CREATE TABLE sources (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE TABLE jobs (
+CREATE TABLE IF NOT EXISTS jobs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   slug TEXT NOT NULL UNIQUE,
   title TEXT NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE jobs (
   archived_at TIMESTAMPTZ
 );
 
-CREATE TABLE job_sources (
+CREATE TABLE IF NOT EXISTS job_sources (
   job_id UUID NOT NULL REFERENCES jobs(id) ON DELETE CASCADE,
   source_id UUID NOT NULL REFERENCES sources(id) ON DELETE CASCADE,
   source_job_key TEXT,
@@ -85,13 +85,13 @@ CREATE TABLE job_sources (
   PRIMARY KEY (job_id, source_id)
 );
 
-CREATE TABLE job_categories (
+CREATE TABLE IF NOT EXISTS job_categories (
   job_id UUID NOT NULL REFERENCES jobs(id) ON DELETE CASCADE,
   category TEXT NOT NULL,
   PRIMARY KEY (job_id, category)
 );
 
-CREATE TABLE job_updates (
+CREATE TABLE IF NOT EXISTS job_updates (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   job_id UUID NOT NULL REFERENCES jobs(id) ON DELETE CASCADE,
   source_id UUID REFERENCES sources(id),
@@ -101,7 +101,7 @@ CREATE TABLE job_updates (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE TABLE verification_history (
+CREATE TABLE IF NOT EXISTS verification_history (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   job_id UUID NOT NULL REFERENCES jobs(id) ON DELETE CASCADE,
   source_id UUID REFERENCES sources(id),
@@ -112,7 +112,7 @@ CREATE TABLE verification_history (
   checked_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE TABLE source_runs (
+CREATE TABLE IF NOT EXISTS source_runs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   source_id UUID NOT NULL REFERENCES sources(id) ON DELETE CASCADE,
   status run_status NOT NULL DEFAULT 'running',
@@ -126,7 +126,7 @@ CREATE TABLE source_runs (
   error_message TEXT
 );
 
-CREATE TABLE failed_jobs (
+CREATE TABLE IF NOT EXISTS failed_jobs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   source_run_id UUID REFERENCES source_runs(id) ON DELETE SET NULL,
   source_id UUID REFERENCES sources(id) ON DELETE SET NULL,
@@ -137,7 +137,7 @@ CREATE TABLE failed_jobs (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE TABLE admin_users (
+CREATE TABLE IF NOT EXISTS admin_users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email TEXT NOT NULL UNIQUE,
   password_hash TEXT NOT NULL,
@@ -147,10 +147,10 @@ CREATE TABLE admin_users (
   last_login_at TIMESTAMPTZ
 );
 
-CREATE INDEX jobs_active_idx ON jobs (visibility, status, application_last_date);
-CREATE INDEX jobs_filter_idx ON jobs (ownership, job_category, work_mode, location);
-CREATE INDEX jobs_title_trgm_idx ON jobs USING gin (title gin_trgm_ops);
-CREATE INDEX jobs_org_trgm_idx ON jobs USING gin (canonical_source_url gin_trgm_ops);
-CREATE INDEX jobs_skills_idx ON jobs USING gin (skills);
-CREATE INDEX source_runs_source_started_idx ON source_runs (source_id, started_at DESC);
-CREATE INDEX verification_job_checked_idx ON verification_history (job_id, checked_at DESC);
+CREATE INDEX IF NOT EXISTS jobs_active_idx ON jobs (visibility, status, application_last_date);
+CREATE INDEX IF NOT EXISTS jobs_filter_idx ON jobs (ownership, job_category, work_mode, location);
+CREATE INDEX IF NOT EXISTS jobs_title_trgm_idx ON jobs USING gin (title gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS jobs_org_trgm_idx ON jobs USING gin (canonical_source_url gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS jobs_skills_idx ON jobs USING gin (skills);
+CREATE INDEX IF NOT EXISTS source_runs_source_started_idx ON source_runs (source_id, started_at DESC);
+CREATE INDEX IF NOT EXISTS verification_job_checked_idx ON verification_history (job_id, checked_at DESC);
