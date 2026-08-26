@@ -1,4 +1,27 @@
 (() => {
+  const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+
+  const renderJobsFromData = (jobs) => {
+    const container = document.querySelector('.jobs-categories');
+    if (!container) return;
+    const categoryNames = { private: 'Private Jobs', government: 'Government Tech Jobs' };
+    container.innerHTML = Object.entries(categoryNames).map(([category, heading]) => {
+      const categoryJobs = jobs.filter((job) => job.category.includes(category));
+      return `<div class="job-category" data-category-panel="${category}"><h2>${heading}</h2><div class="job-list">${categoryJobs.map((job) => `<article class="job-card" data-job-category="${job.category.join(' ')}"><div><p class="job-type">${escapeHtml(job.type)}</p><h3>${escapeHtml(job.title)}</h3><p>${escapeHtml(job.company)} · ${escapeHtml(job.location)}</p></div><ul>${job.details.map((detail) => `<li>${escapeHtml(detail)}</li>`).join('')}</ul><a href="${escapeHtml(job.applyUrl)}" target="_blank" rel="noreferrer">Apply / Details</a></article>`).join('')}</div></div>`;
+    }).join('');
+  };
+
+  const loadJobs = async () => {
+    if (!document.querySelector('.jobs-categories')) return;
+    try {
+      const response = await fetch('jobs.json', { cache: 'no-store' });
+      if (!response.ok) throw new Error('Jobs data unavailable');
+      renderJobsFromData(await response.json());
+    } catch (error) {
+      // Keep the inline fallback listings available for local file previews.
+    }
+  };
+
   const setupHomeJobSearch = () => {
     const form = document.querySelector('.job-search');
     if (!form) return;
@@ -79,7 +102,7 @@
     applyFilter(['all', 'private', 'government', 'work-from-home', 'bpo'].includes(requestedFilter) ? requestedFilter : 'all');
   };
 
-  setupJobFilters();
+  loadJobs().finally(setupJobFilters);
 
   const canvas = document.querySelector('.hero-canvas');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
