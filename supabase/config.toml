@@ -1,7 +1,0 @@
-project_id = "jobposting"
-
-[functions.jobs]
-verify_jwt = false
-
-[functions.sync]
-verify_jwt = false
