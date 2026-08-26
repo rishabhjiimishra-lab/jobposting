@@ -1,4 +1,54 @@
 (() => {
+  const setupJobFilters = () => {
+    const jobsBand = document.querySelector('.jobs-band');
+    if (!jobsBand) return;
+
+    const form = document.querySelector('#job-filters') || (() => {
+      const createdForm = document.createElement('form');
+      createdForm.className = 'job-filters';
+      createdForm.id = 'job-filters';
+      createdForm.noValidate = true;
+      createdForm.innerHTML = '<label for="job-filter">Filter jobs</label><select id="job-filter" name="job-filter"><option value="all">All jobs</option><option value="private">Private</option><option value="government">Government</option><option value="work-from-home">Work From Home</option><option value="bpo">BPO</option></select><p class="filter-message" id="filter-message" role="status" aria-live="polite"></p>';
+      jobsBand.insertBefore(createdForm, jobsBand.querySelector('.jobs-categories'));
+      return createdForm;
+    })();
+    const select = form.querySelector('select');
+    const message = form.querySelector('.filter-message');
+    const cards = [...jobsBand.querySelectorAll('.job-card')];
+
+    cards.forEach((card) => {
+      if (card.dataset.jobCategory) return;
+      const text = card.textContent.toLowerCase();
+      const categories = text.includes('government') ? ['government'] : ['private'];
+      if (text.includes('remote') || text.includes('work from home')) categories.push('work-from-home');
+      if (text.includes('customer support') || text.includes('bpo')) categories.push('bpo');
+      card.dataset.jobCategory = categories.join(' ');
+    });
+
+    const applyFilter = () => {
+      const value = select.value;
+      if (!['all', 'private', 'government', 'work-from-home', 'bpo'].includes(value)) {
+        select.setCustomValidity('Please select a valid job category.');
+        message.textContent = 'Please select a valid job category.';
+        return;
+      }
+      select.setCustomValidity('');
+      let visible = 0;
+      cards.forEach((card) => {
+        const show = value === 'all' || card.dataset.jobCategory.split(' ').includes(value);
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      message.textContent = visible ? `${visible} job${visible === 1 ? '' : 's'} found` : 'No jobs found in this category.';
+    };
+
+    select.addEventListener('change', applyFilter);
+    form.addEventListener('submit', (event) => event.preventDefault());
+    applyFilter();
+  };
+
+  setupJobFilters();
+
   const canvas = document.querySelector('.hero-canvas');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

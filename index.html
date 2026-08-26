@@ -115,27 +115,26 @@
 
       <section class="section" id="vlogs">
         <div class="section-heading">
-          <p class="eyebrow">Vlog posts and job experiences</p>
           <h2>Real stories from work and life</h2>
         </div>
         <div class="video-grid">
-          <a class="video-card" href="https://www.youtube.com/@Tech_bhaiyaji/videos" target="_blank" rel="noreferrer">
-            <div class="thumbnail red"><span>▶</span></div>
-            <p class="video-tag">Job experience</p>
-            <h3>How I feel after doing this job</h3>
-            <p>Share your honest review: workload, timing, salary, pressure, growth, and daily routine.</p>
+          <a class="video-card" href="https://youtu.be/hnh0QdBsvkY?si=VHWrQ9NconTE16m6" target="_blank" rel="noreferrer">
+            <div class="thumbnail featured-hnh" role="img" aria-label="How this job actually feels video thumbnail"><span>▶</span></div>
+            <p class="video-tag">Featured experience</p>
+            <h3>How this job actually feels</h3>
+            <p>Watch the latest real job experience and workplace lessons.</p>
           </a>
-          <a class="video-card" href="https://www.youtube.com/@Tech_bhaiyaji/videos" target="_blank" rel="noreferrer">
-            <div class="thumbnail teal"><span>▶</span></div>
+          <a class="video-card" href="https://youtu.be/DPaKtALadyM?si=f5SW9hPdHE1Vn7EU" target="_blank" rel="noreferrer">
+            <div class="thumbnail career-dpa" role="img" aria-label="A day in my work life video thumbnail"><span>▶</span></div>
             <p class="video-tag">Career vlog</p>
             <h3>A day in my work life</h3>
             <p>Show viewers the real routine behind a job so they can decide better before applying.</p>
           </a>
-          <a class="video-card" href="https://www.youtube.com/@Tech_bhaiyaji/videos" target="_blank" rel="noreferrer">
-            <div class="thumbnail yellow"><span>▶</span></div>
-            <p class="video-tag">Job review</p>
-            <h3>Is this job good for freshers?</h3>
-            <p>Explain eligibility, skills needed, interview process, and whether the job is worth it.</p>
+          <a class="video-card" href="https://youtu.be/hnh0QdBsvkY?si=LENmia5gQr1jhn0Q" target="_blank" rel="noreferrer">
+            <div class="thumbnail career-hnh" role="img" aria-label="Real work experience video thumbnail"><span>▶</span></div>
+            <p class="video-tag">Career vlog</p>
+            <h3>Real work experience</h3>
+            <p>Understand the daily routine before applying or joining.</p>
           </a>
         </div>
       </section>
@@ -148,11 +147,22 @@
           </div>
           <a class="secondary-action light" href="#contact">Share a Job</a>
         </div>
+        <form class="job-filters" id="job-filters" novalidate>
+          <label for="job-filter">Filter jobs</label>
+          <select id="job-filter" name="job-filter">
+            <option value="all">All jobs</option>
+            <option value="private">Private</option>
+            <option value="government">Government</option>
+            <option value="work-from-home">Work From Home</option>
+            <option value="bpo">BPO</option>
+          </select>
+          <p class="filter-message" id="filter-message" role="status" aria-live="polite"></p>
+        </form>
         <div class="jobs-categories">
           <div class="job-category">
             <h3>Private Jobs</h3>
             <div class="job-list">
-              <article class="job-card">
+              <article class="job-card" data-job-category="private bpo work-from-home">
                 <div>
                   <p class="job-type">Full Time</p>
                   <h3>Customer Support Executive</h3>
@@ -165,7 +175,7 @@
                 </ul>
                 <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">Apply / Details</a>
               </article>
-              <article class="job-card">
+              <article class="job-card" data-job-category="private">
                 <div>
                   <p class="job-type">Internship</p>
                   <h3>Social Media Intern</h3>
@@ -183,7 +193,7 @@
           <div class="job-category">
             <h3>Government Tech Jobs</h3>
             <div class="job-list">
-              <article class="job-card">
+              <article class="job-card" data-job-category="government">
                 <div>
                   <p class="job-type">Government</p>
                   <h3>Government IT Job Alert for Freshers</h3>
