@@ -1690,3 +1690,272 @@ h3 {
     min-width: 132px;
   }
 }
+
+@media (max-width: 560px) {
+  html {
+    scroll-padding-top: 150px;
+  }
+
+  body {
+    min-width: 0;
+  }
+
+  .site-header {
+    top: 8px;
+    width: calc(100% - 16px);
+    max-width: none;
+    min-height: 0;
+    margin-top: 8px;
+    padding: 8px;
+    gap: 8px;
+    border-radius: 22px;
+  }
+
+  .brand {
+    flex: 1 1 calc(100% - 112px);
+    max-width: calc(100% - 112px);
+    padding-left: 2px;
+    font-size: 0.9rem;
+  }
+
+  .brand span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .brand-mark {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+  }
+
+  .subscribe-button {
+    flex: 0 0 auto;
+    min-width: 96px;
+    min-height: 38px;
+    padding: 9px 12px;
+    font-size: 0.84rem;
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    gap: 3px;
+    padding: 4px;
+    overflow-x: auto;
+    border-radius: 18px;
+  }
+
+  .nav a {
+    flex: 0 0 auto;
+    min-height: 34px;
+    padding: 8px 10px;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+
+  .hero,
+  .page-hero,
+  .section,
+  .about-band,
+  .jobs-band,
+  .job-brief-section,
+  .latest-vlog {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .hero {
+    gap: 24px;
+    padding-top: 28px;
+    padding-bottom: 48px;
+  }
+
+  .hero-canvas {
+    right: -38%;
+    width: 100vw;
+    height: 100vw;
+  }
+
+  h1 {
+    font-size: clamp(2.1rem, 14vw, 3.4rem);
+    line-height: 1;
+  }
+
+  h2,
+  .job-brief h2,
+  .footer-contact h2 {
+    font-size: clamp(1.65rem, 9vw, 2.55rem);
+    line-height: 1.12;
+  }
+
+  .hero-text,
+  .job-brief > p:not(.eyebrow),
+  .jobs-cta p:not(.eyebrow),
+  .footer-contact p:not(.eyebrow) {
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .primary-action,
+  .secondary-action,
+  .hero-actions a,
+  .jobs-cta .primary-action,
+  .section-heading .primary-action {
+    width: 100%;
+    text-align: center;
+  }
+
+  .stats {
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .stats div {
+    min-width: 0;
+    width: 100%;
+    padding: 14px 16px;
+  }
+
+  .mnc-ticker {
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  .mnc-track {
+    gap: 8px;
+  }
+
+  .mnc-track span {
+    min-width: 118px;
+    min-height: 38px;
+    padding: 8px 10px;
+    font-size: 0.76rem;
+  }
+
+  .mnc-track img {
+    width: 18px;
+    height: 18px;
+    padding: 2px;
+  }
+
+  .featured-video .video-frame {
+    min-height: 180px;
+    padding: 16px;
+  }
+
+  .video-meta {
+    gap: 7px;
+  }
+
+  .video-meta strong {
+    font-size: 1.05rem;
+  }
+
+  .play-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .job-brief,
+  .job-search,
+  .latest-jobs-panel,
+  .video-card,
+  .job-card {
+    padding: 16px;
+  }
+
+  .job-brief-visual {
+    min-height: 145px;
+    margin-bottom: 22px;
+    font-size: clamp(1.9rem, 13vw, 3rem);
+  }
+
+  .telegram-cta {
+    margin: 22px auto 28px;
+    padding: 13px 14px;
+  }
+
+  .page-preview-card {
+    min-height: 220px;
+    padding: 18px;
+  }
+
+  .preview-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 0.72rem;
+  }
+
+  .job-shortcuts {
+    grid-template-columns: 1fr;
+  }
+
+  .topics span {
+    padding: 10px 12px;
+    font-size: 0.88rem;
+  }
+
+  .site-footer {
+    gap: 18px;
+    padding: 40px 16px 28px;
+  }
+
+  .footer-contact {
+    gap: 24px;
+    padding-bottom: 26px;
+  }
+
+  .contact-panel a {
+    min-width: 0;
+    min-height: 52px;
+    padding: 13px 14px;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 8px;
+  }
+
+  .footer-links a {
+    text-align: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .brand {
+    max-width: calc(100% - 100px);
+    font-size: 0.84rem;
+  }
+
+  .subscribe-button {
+    min-width: 88px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 0.8rem;
+  }
+
+  .nav a {
+    padding-right: 9px;
+    padding-left: 9px;
+  }
+
+  .hero,
+  .page-hero,
+  .section,
+  .about-band,
+  .jobs-band,
+  .job-brief-section,
+  .latest-vlog {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+}
