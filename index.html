@@ -51,7 +51,7 @@
   <body>
     <header class="site-header">
       <a class="brand" href="#home" aria-label="Rishabh Mishra home">
-        <span class="brand-mark">Play</span>
+        <span class="brand-mark">RM</span>
         <span>Rishabh Mishra</span>
       </a>
       <nav class="nav" aria-label="Main navigation">
@@ -127,16 +127,12 @@
         <aside class="job-sidebar" aria-label="Job search and latest jobs">
           <form class="job-search" role="search">
             <label for="home-job-search">Search jobs</label>
-            <div><input id="home-job-search" type="search" placeholder="Search ..." /><button type="submit" aria-label="Search jobs">⌕</button></div>
+            <div><input id="home-job-search" type="search" placeholder="Search role, company, location..." /><button type="submit" aria-label="Search jobs">Search</button></div>
             <p class="job-search-message" role="status" aria-live="polite"></p>
           </form>
-          <div class="latest-jobs-panel">
+          <div class="latest-jobs-panel" data-latest-jobs>
             <h3>Latest Jobs</h3>
-            <a href="jobs.html?category=government">Huron Recruitment Hiring Graduates Freshers for Analytics Engineer Analyst</a>
-            <a href="jobs.html?category=private">Salesforce Recruitment Hiring Graduates Freshers for Associate Technical Consultant</a>
-            <a href="jobs.html?category=private">IBM Recruitment Hiring Graduates Freshers for Application Developer Intern</a>
-            <a href="jobs.html?category=work-from-home">Cactus Work From Home Hiring Freshers for Support Associate</a>
-            <a href="jobs.html?category=private">Google Recruitment Hiring Graduates Freshers for Silicon Engineer</a>
+            <div class="latest-jobs-list"></div>
           </div>
         </aside>
       </section>
