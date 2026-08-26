@@ -14,18 +14,6 @@ jobs:
           SUPABASE_SYNC_URL: ${{ secrets.SUPABASE_SYNC_URL }}
           SYNC_SECRET: ${{ secrets.SYNC_SECRET }}
         run: |
-          if [ -z "$SUPABASE_SYNC_URL" ]; then
-            echo "Missing GitHub secret: SUPABASE_SYNC_URL"
-            exit 1
-          fi
-          if [[ "$SUPABASE_SYNC_URL" == *"YOUR_PROJECT_REF"* || "$SUPABASE_SYNC_URL" != https://*.supabase.co/functions/v1/sync ]]; then
-            echo "SUPABASE_SYNC_URL must look like https://PROJECT_REF.supabase.co/functions/v1/sync"
-            exit 1
-          fi
-          if [ -z "$SYNC_SECRET" ]; then
-            echo "Missing GitHub secret: SYNC_SECRET"
-            exit 1
-          fi
           curl --fail-with-body --retry 3 --max-time 30 \
             -X POST "$SUPABASE_SYNC_URL" \
             -H "Content-Type: application/json" \
