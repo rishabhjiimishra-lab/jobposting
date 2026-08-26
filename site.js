@@ -1,4 +1,29 @@
 (() => {
+  const setupHomeJobSearch = () => {
+    const form = document.querySelector('.job-search');
+    if (!form) return;
+    const input = form.querySelector('input');
+    const message = form.querySelector('.job-search-message');
+    const jobs = [...document.querySelectorAll('.latest-jobs-panel a')];
+    const search = () => {
+      const query = input.value.trim().toLowerCase();
+      let visible = 0;
+      jobs.forEach((job) => {
+        const match = !query || job.textContent.toLowerCase().includes(query);
+        job.hidden = !match;
+        if (match) visible += 1;
+      });
+      message.textContent = query && !visible ? 'No matching jobs found.' : '';
+    };
+    input.addEventListener('input', search);
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      search();
+    });
+  };
+
+  setupHomeJobSearch();
+
   const setupJobFilters = () => {
     const jobsBand = document.querySelector('.jobs-band');
     const categoriesContainer = jobsBand?.querySelector('.jobs-categories');
