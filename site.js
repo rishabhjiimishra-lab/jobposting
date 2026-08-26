@@ -1,6 +1,20 @@
 (() => {
   const jobs = [
     {
+      title: 'JPMC Data Analyst - AML/KYC Operations',
+      company: 'JPMorgan Chase & Co.',
+      category: 'private',
+      type: 'Full Time',
+      location: 'India',
+      postedAt: '2026-08-26T14:15:00+05:30',
+      details: [
+        'Domain: Banking and financial services with AML/KYC operations support',
+        'Role: Data analysis, client onboarding, risk review, and compliance checks',
+        'Skills: Excel, research, problem solving, reporting, and attention to detail',
+      ],
+      url: 'https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210780424?keyword=Data+Analyst&location=India&locationId=300000000289360&locationLevel=country&mode=location',
+    },
+    {
       title: 'Cognizant Data Analytics Process Executive',
       company: 'Cognizant',
       category: 'private',
