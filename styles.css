@@ -16,6 +16,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 88px;
 }
 
 body {
@@ -320,11 +321,57 @@ a {
 }
 
 .job-filters {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  display: grid;
   gap: 12px;
   margin-bottom: 28px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid #cfe5e2;
+  border-radius: 8px;
+}
+
+.job-filter-group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.job-filter-group legend {
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-option {
+  min-height: 42px;
+  padding: 10px 15px;
+  color: var(--ink);
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition: color 180ms ease, background 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+
+.filter-option:hover,
+.filter-option:focus-visible {
+  border-color: var(--red);
+  transform: translateY(-2px);
+}
+
+.filter-option.is-active {
+  color: white;
+  background: var(--red);
+  border-color: var(--red);
 }
 
 .job-filters label {
@@ -991,11 +1038,18 @@ h3 {
 
   .job-filters {
     align-items: stretch;
-    flex-direction: column;
+    padding: 14px;
   }
 
-  .job-filters select {
-    width: 100%;
+  .filter-options {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+
+  .filter-option {
+    flex: 0 0 auto;
   }
 
   h1 {

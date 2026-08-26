@@ -9,11 +9,11 @@
       createdForm.className = 'job-filters';
       createdForm.id = 'job-filters';
       createdForm.noValidate = true;
-      createdForm.innerHTML = '<label for="job-filter">Filter jobs</label><select id="job-filter" name="job-filter"><option value="all">All jobs</option><option value="private">Private</option><option value="government">Government</option><option value="work-from-home">Work From Home</option><option value="bpo">BPO</option></select><p class="filter-message" id="filter-message" role="status" aria-live="polite"></p>';
+      createdForm.innerHTML = '<fieldset class="job-filter-group"><legend>Browse jobs by category</legend><div class="filter-options"><button type="button" class="filter-option is-active" data-filter="all">All jobs</button><button type="button" class="filter-option" data-filter="private">Private</button><button type="button" class="filter-option" data-filter="government">Government</button><button type="button" class="filter-option" data-filter="work-from-home">Work From Home</button><button type="button" class="filter-option" data-filter="bpo">BPO</button></div></fieldset><p class="filter-message" id="filter-message" role="status" aria-live="polite"></p>';
       jobsBand.insertBefore(createdForm, categoriesContainer);
       return createdForm;
     })();
-    const select = form.querySelector('select');
+    const options = [...form.querySelectorAll('[data-filter]')];
     const message = form.querySelector('.filter-message');
     const cards = [...jobsBand.querySelectorAll('.job-card')];
 
@@ -26,14 +26,16 @@
       card.dataset.jobCategory = categories.join(' ');
     });
 
-    const applyFilter = () => {
-      const value = select.value;
+    const applyFilter = (value = 'all') => {
       if (!['all', 'private', 'government', 'work-from-home', 'bpo'].includes(value)) {
-        select.setCustomValidity('Please select a valid job category.');
         message.textContent = 'Please select a valid job category.';
         return;
       }
-      select.setCustomValidity('');
+      options.forEach((option) => {
+        const active = option.dataset.filter === value;
+        option.classList.toggle('is-active', active);
+        option.setAttribute('aria-pressed', String(active));
+      });
       let visible = 0;
       cards.forEach((card) => {
         const show = value === 'all' || card.dataset.jobCategory.split(' ').includes(value);
@@ -43,9 +45,9 @@
       message.textContent = visible ? `${visible} job${visible === 1 ? '' : 's'} found` : 'No jobs found in this category.';
     };
 
-    select.addEventListener('change', applyFilter);
+    options.forEach((option) => option.addEventListener('click', () => applyFilter(option.dataset.filter)));
     form.addEventListener('submit', (event) => event.preventDefault());
-    applyFilter();
+    applyFilter('all');
   };
 
   setupJobFilters();
