@@ -928,7 +928,7 @@ h3 {
 
 .video-card {
   display: grid;
-  grid-template-rows: auto auto auto 1fr;
+  grid-template-rows: auto auto auto;
   gap: 14px;
   padding: 18px;
   background: white;
@@ -994,11 +994,6 @@ h3 {
   font-size: 0.8rem;
   font-weight: 800;
   text-transform: uppercase;
-}
-
-.video-card p:last-child {
-  margin: 0;
-  min-height: 54px;
 }
 
 .jobs-band {
@@ -1175,14 +1170,45 @@ h3 {
 
 .site-footer {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 24px;
   margin-top: 0;
-  padding: 34px 6vw;
+  padding: 58px 6vw 34px;
   color: #d8d8de;
   background: #191a1f;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-contact {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
+  gap: 44px;
+  align-items: start;
+  padding-bottom: 34px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-contact h2 {
+  max-width: 850px;
+  color: white;
+  font-size: clamp(1.8rem, 4vw, 3.7rem);
+}
+
+.footer-contact p:not(.eyebrow) {
+  max-width: 720px;
+  color: #d8d8de;
+  line-height: 1.7;
+}
+
+.site-footer .contact-panel {
+  align-items: stretch;
+}
+
+.site-footer .contact-panel a {
+  min-width: 0;
+  color: var(--ink);
 }
 
 .footer-summary {
@@ -1382,6 +1408,10 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .footer-contact {
+    grid-template-columns: 1fr;
+  }
+
   .jobs-cta {
     align-items: flex-start;
     flex-direction: column;
@@ -1534,6 +1564,21 @@ h3 {
   }
 
   .stats div {
-    width: 100%;
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 12px 10px;
+  }
+
+  .stats {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .stats dt {
+    font-size: clamp(1rem, 5vw, 1.35rem);
+  }
+
+  .stats dd {
+    font-size: 0.76rem;
   }
 }
