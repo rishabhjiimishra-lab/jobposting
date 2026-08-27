@@ -31,6 +31,7 @@
   url: 'https://www.jobs.global.fujitsu.com/job/Application-Development/10854-en_US',
 },
 
+
 {
   title: 'Oracle IT Service Desk - Customer Service Coordinator',
   company: 'Oracle',
@@ -47,6 +48,41 @@
   ],
   url: 'https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/339174?lastSelectedFacet=LOCATIONS&selectedFlexFieldsFacets=%22AttributeChar6%7C0+to+2%2B+years%22&selectedLocationsFacet=300000000106947',
 },
+
+  {
+    title: 'ISRO Scientist/Engineer - SC',
+    company: 'ISRO',
+    category: 'government',
+    type: 'Full Time',
+    location: 'India',
+    postedAt: '2026-08-27T00:00:00+05:30',
+    details: [
+      'Organization: Indian Space Research Organisation (ISRO)',
+      'Domain: Space Technology and Research',
+      'Role: Scientist/Engineer - SC',
+      'Stream: Computer Science / Information Technology related',
+      'Eligibility: As per official recruitment notification',
+    ],
+    url: 'OFFICIAL_EXACT_JOB_URL',
+  },
+
+  {
+    title: 'ISRO Graduate Apprentice - Computer Science',
+    company: 'ISRO / URSC',
+    category: 'government',
+    type: 'Apprenticeship',
+    location: 'Bengaluru, India',
+    postedAt: '2026-08-27T00:00:00+05:30',
+    details: [
+      'Organization: U R Rao Satellite Centre (URSC), ISRO',
+      'Domain: Space Technology',
+      'Role: Graduate Apprentice',
+      'Stream: Computer Science / IT related',
+      'Last Date: 28 August 2026',
+    ],
+    url: 'https://apps.ursc.gov.in/URSCBE-2026/advt.jsp',
+  },
+
     {
       title: 'Cognizant Data Analytics Process Executive',
       company: 'Cognizant',
