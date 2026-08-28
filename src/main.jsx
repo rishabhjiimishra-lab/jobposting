@@ -7,6 +7,13 @@ import '../styles.css';
 
 const pages = ['home', 'vlogs', 'jobs', 'about', 'contact'];
 const pageHref = { home: 'index.html', vlogs: 'vlogs.html', jobs: 'jobs.html', about: 'about.html', contact: 'contact.html' };
+const meta = {
+  home: ['Rishabh Mishra | Latest Jobs, Job Experiences & Vlogs', 'Latest job alerts, fresher openings, real job experiences, reviews, and career vlogs by Rishabh Mishra.'],
+  vlogs: ['Vlogs | Rishabh Mishra', 'Watch real job experience vlogs, daily routines, salary expectations, and useful career stories.'],
+  jobs: ['Jobs | Rishabh Mishra', 'Search private, government, work-from-home, internship, and BPO job openings with filters and details.'],
+  about: ['About | Rishabh Mishra', "Learn about Rishabh Mishra's job updates and career experience platform."],
+  contact: ['Contact | Rishabh Mishra', 'Contact Rishabh Mishra for job updates, collaborations, and career questions.'],
+};
 
 function App() {
   const [page, setPage] = useState(pageFromPath(window.location.pathname));
@@ -17,23 +24,18 @@ function App() {
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
-  const navigate = (nextPage, event) => {
+  useEffect(() => {
+    const [title, description] = meta[page];
+    document.title = title;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+  }, [page]);
+
+  const navigate = (nextPage, event, search = '') => {
     event?.preventDefault();
-    const target = pageHref[nextPage];
-    window.history.pushState({}, '', target);
+    window.history.pushState({}, '', `${pageHref[nextPage]}${search}`);
     setPage(nextPage);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  useEffect(() => {
-    document.title = {
-      home: 'Rishabh Mishra | Latest Jobs, Job Experiences & Vlogs',
-      vlogs: 'Vlogs | Rishabh Mishra',
-      jobs: 'Jobs | Rishabh Mishra',
-      about: 'About | Rishabh Mishra',
-      contact: 'Contact | Rishabh Mishra',
-    }[page];
-  }, [page]);
 
   return (
     <>
@@ -51,15 +53,33 @@ function App() {
 }
 
 function Header({ page, navigate }) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const close = () => setOpen(false);
+    window.addEventListener('resize', close);
+    return () => window.removeEventListener('resize', close);
+  }, []);
+
+  const go = (item, event) => {
+    setOpen(false);
+    navigate(item, event);
+  };
+
   return (
-    <header className="site-header">
-      <a className="brand" href="index.html" onClick={(event) => navigate('home', event)} aria-label="Rishabh Mishra home">
+    <header className={`site-header ${open ? 'is-menu-open' : ''}`}>
+      <a className="brand" href="index.html" onClick={(event) => go('home', event)} aria-label="Rishabh Mishra home">
         <span className="brand-mark">RM</span>
         <span>Rishabh Mishra</span>
       </a>
-      <nav className="nav" aria-label="Main navigation">
+      <button className="menu-toggle" type="button" aria-expanded={open} aria-controls="main-navigation" aria-label="Toggle navigation" onClick={() => setOpen((value) => !value)}>
+        <span />
+        <span />
+        <span />
+      </button>
+      <nav className="nav" id="main-navigation" aria-label="Main navigation">
         {pages.map((item) => (
-          <a key={item} href={pageHref[item]} onClick={(event) => navigate(item, event)} aria-current={page === item ? 'page' : undefined}>
+          <a key={item} href={pageHref[item]} onClick={(event) => go(item, event)} aria-current={page === item ? 'page' : undefined}>
             {item[0].toUpperCase() + item.slice(1)}
           </a>
         ))}
@@ -77,7 +97,6 @@ function HeroCanvas() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-
     let renderer;
     try {
       renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
@@ -85,7 +104,6 @@ function HeroCanvas() {
       canvas.closest('.hero')?.classList.add('hero--no-webgl');
       return undefined;
     }
-
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
     const group = new THREE.Group();
@@ -114,7 +132,6 @@ function HeroCanvas() {
       frameId = requestAnimationFrame(animate);
     };
     frameId = requestAnimationFrame(animate);
-
     return () => {
       cancelAnimationFrame(frameId);
       observer.disconnect();
@@ -127,7 +144,6 @@ function HeroCanvas() {
 
 function Home({ navigate }) {
   const latestJobs = useMemo(() => [...jobs].sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt)).slice(0, 5), []);
-
   return (
     <>
       <section className="hero" id="home">
@@ -142,8 +158,8 @@ function Home({ navigate }) {
             <a className="secondary-action" href="vlogs.html" onClick={(event) => navigate('vlogs', event)}>Watch Vlogs</a>
           </div>
           <dl className="stats" aria-label="Channel statistics">
-            <div><dt>Daily</dt><dd>Job Alerts</dd></div>
-            <div><dt>Weekly</dt><dd>Vlogs</dd></div>
+            <div><dt>{jobs.length}+</dt><dd>Openings</dd></div>
+            <div><dt>4</dt><dd>Categories</dd></div>
             <div><dt>Free</dt><dd>Updates</dd></div>
           </dl>
         </div>
@@ -157,16 +173,16 @@ function Home({ navigate }) {
           <a className="telegram-cta" href="https://t.me/" target="_blank" rel="noreferrer">Join Our Official Telegram Channel</a>
           <div className="job-brief-visual" role="img" aria-label="Data analytics career opportunity visual"><span>DATA<br />ANALYTICS</span></div>
           <p>Cognizant is hiring freshers for a Process Executive opportunity in the data analytics domain. Explore the role, eligibility, work location, and application details before applying.</p>
-          <a className="secondary-action" href="jobs.html?category=private" onClick={(event) => navigate('jobs', event)}>See more jobs</a>
+          <a className="secondary-action" href="jobs.html?category=private" onClick={(event) => navigate('jobs', event, '?category=private')}>See more jobs</a>
         </article>
-        <aside className="job-sidebar" aria-label="Job search and latest jobs">
+        <aside className="job-sidebar" aria-label="Latest jobs">
           <div className="latest-jobs-panel">
             <h3>Latest Jobs</h3>
             <div className="latest-jobs-list">
               {latestJobs.map((job) => (
-                <a key={job.title} href={`jobs.html?category=${job.category}`} onClick={(event) => navigate('jobs', event)}>
+                <a key={job.title} href={`jobs.html?category=${job.category}`} onClick={(event) => navigate('jobs', event, `?category=${job.category}`)}>
                   <strong>{job.title}</strong>
-                  <span>{job.company} · {job.location} · {getTimeAgo(job.postedAt)}</span>
+                  <span>{job.company} | {job.location} | {getTimeAgo(job.postedAt)}</span>
                 </a>
               ))}
             </div>
@@ -185,7 +201,7 @@ function FeaturedVideo() {
   return (
     <a className="featured-video" href={videos[0].url} target="_blank" rel="noreferrer" aria-label="Watch featured vlog on YouTube">
       <div className="video-frame" role="img" aria-label="Featured vlog thumbnail from How this job actually feels">
-        <div className="play-icon">▶</div>
+        <div className="play-icon">Play</div>
         <div className="video-meta"><span>Featured Vlog</span><strong>How this job actually feels: latest experience vlog</strong></div>
       </div>
     </a>
@@ -234,12 +250,26 @@ function VideoGrid() {
     <div className="video-grid">
       {videos.map((video) => (
         <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.title}>
-          <div className={`thumbnail ${video.thumbnailClass}`} role="img" aria-label={`${video.title} video thumbnail`}><span>▶</span></div>
+          <div className={`thumbnail ${video.thumbnailClass}`} role="img" aria-label={`${video.title} video thumbnail`}><span>Play</span></div>
           <p className="video-tag">{video.tag}</p>
           <h3>{video.title}</h3>
           {video.description && <p>{video.description}</p>}
         </a>
       ))}
+    </div>
+  );
+}
+
+function YouTubeEmbed({ videoId, title }) {
+  return (
+    <div className="embed-card">
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title={title}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+      />
     </div>
   );
 }
@@ -253,7 +283,7 @@ function JobsCta({ navigate }) {
         <p>Explore curated private, government, work-from-home, and BPO opportunities built for students, freshers, and growing professionals.</p>
         <nav className="job-shortcuts" aria-label="Browse jobs by category">
           {Object.entries(categoryLabels).map(([category, label]) => (
-            <a href={`jobs.html?category=${category}`} onClick={(event) => navigate('jobs', event)} key={category}>{label}</a>
+            <a href={`jobs.html?category=${category}`} onClick={(event) => navigate('jobs', event, `?category=${category}`)} key={category}>{label}</a>
           ))}
         </nav>
       </div>
@@ -264,10 +294,33 @@ function JobsCta({ navigate }) {
 
 function Jobs() {
   const initialCategory = new URLSearchParams(window.location.search).get('category') || 'all';
-  const [filter, setFilter] = useState(['all', ...Object.keys(categoryLabels)].includes(initialCategory) ? initialCategory : 'all');
-  const [query, setQuery] = useState('');
-  const normalizedQuery = query.trim().toLowerCase();
-  const filteredJobs = jobs.filter((job) => (filter === 'all' || job.category === filter) && (!normalizedQuery || getJobText(job).includes(normalizedQuery)));
+  const [filters, setFilters] = useState({
+    category: ['all', ...Object.keys(categoryLabels)].includes(initialCategory) ? initialCategory : 'all',
+    query: '',
+    type: 'all',
+    location: 'all',
+    experience: 'all',
+  });
+  const [selectedJob, setSelectedJob] = useState(null);
+  const options = useMemo(() => ({
+    type: ['all', ...new Set(jobs.map((job) => job.type))],
+    location: ['all', ...new Set(jobs.map((job) => job.location))],
+    experience: ['all', ...new Set(jobs.map((job) => job.experience))],
+  }), []);
+
+  const filteredJobs = jobs.filter((job) => {
+    const query = filters.query.trim().toLowerCase();
+    return (
+      (filters.category === 'all' || job.category === filters.category) &&
+      (filters.type === 'all' || job.type === filters.type) &&
+      (filters.location === 'all' || job.location === filters.location) &&
+      (filters.experience === 'all' || job.experience === filters.experience) &&
+      (!query || getJobText(job).includes(query))
+    );
+  });
+
+  const setFilter = (key, value) => setFilters((current) => ({ ...current, [key]: value }));
+  const resetFilters = () => setFilters({ category: 'all', query: '', type: 'all', location: 'all', experience: 'all' });
 
   return (
     <>
@@ -280,24 +333,32 @@ function Jobs() {
         <form className="job-search job-page-search" role="search" onSubmit={(event) => event.preventDefault()}>
           <label htmlFor="job-keyword-search">Search jobs by keyword</label>
           <div>
-            <input id="job-keyword-search" type="search" placeholder="Search company, role, skill, location..." value={query} onChange={(event) => setQuery(event.target.value)} />
+            <input id="job-keyword-search" type="search" placeholder="Search company, role, skill, location..." value={filters.query} onChange={(event) => setFilter('query', event.target.value)} />
             <button type="submit" aria-label="Search jobs">Search</button>
           </div>
-          <p className="job-search-message" role="status" aria-live="polite">{filteredJobs.length ? `${filteredJobs.length} job${filteredJobs.length === 1 ? '' : 's'} found` : 'No jobs found for this keyword.'}</p>
+          <p className="job-search-message" role="status" aria-live="polite">{resultText(filteredJobs.length)}</p>
         </form>
-        <form className="job-filters" id="job-filters" noValidate onSubmit={(event) => event.preventDefault()}>
+        <div className="job-filters" id="job-filters">
           <fieldset className="job-filter-group">
             <legend>Browse jobs by category</legend>
             <div className="filter-options">
               {['all', ...Object.keys(categoryLabels)].map((category) => (
-                <button type="button" className={`filter-option ${filter === category ? 'is-active' : ''}`} data-filter={category} aria-pressed={filter === category} onClick={() => setFilter(category)} key={category}>
+                <button type="button" className={`filter-option ${filters.category === category ? 'is-active' : ''}`} aria-pressed={filters.category === category} onClick={() => setFilter('category', category)} key={category}>
                   {category === 'all' ? 'All jobs' : categoryLabels[category].replace(' Jobs', '')}
                 </button>
               ))}
             </div>
           </fieldset>
-          <p className="filter-message" role="status" aria-live="polite">{filteredJobs.length ? `${filteredJobs.length} job${filteredJobs.length === 1 ? '' : 's'} found` : 'No jobs found for this keyword.'}</p>
-        </form>
+          <div className="select-filter-grid">
+            <SelectFilter label="Job type" value={filters.type} options={options.type} onChange={(value) => setFilter('type', value)} />
+            <SelectFilter label="Location" value={filters.location} options={options.location} onChange={(value) => setFilter('location', value)} />
+            <SelectFilter label="Experience" value={filters.experience} options={options.experience} onChange={(value) => setFilter('experience', value)} />
+          </div>
+          <div className="filter-summary">
+            <p className="filter-message" role="status" aria-live="polite">{resultText(filteredJobs.length)}</p>
+            <button type="button" className="reset-button" onClick={resetFilters}>Reset filters</button>
+          </div>
+        </div>
         <div className="jobs-categories">
           {Object.entries(categoryLabels).map(([category, label]) => {
             const categoryJobs = filteredJobs.filter((job) => job.category === category);
@@ -305,27 +366,87 @@ function Jobs() {
             return (
               <div className="job-category" key={category}>
                 <h2>{label}</h2>
-                <div className="job-list">{categoryJobs.map((job) => <JobCard job={job} key={job.title} />)}</div>
+                <div className="job-list">{categoryJobs.map((job) => <JobCard job={job} onDetails={() => setSelectedJob(job)} key={job.title} />)}</div>
               </div>
             );
           })}
         </div>
+        {!filteredJobs.length && <p className="empty-state">No matching jobs right now. Try clearing one filter or searching a broader skill.</p>}
       </section>
+      {selectedJob && <JobDetailsModal job={selectedJob} onClose={() => setSelectedJob(null)} />}
     </>
   );
 }
 
-function JobCard({ job }) {
+function SelectFilter({ label, value, options, onChange }) {
+  return (
+    <label>
+      <span>{label}</span>
+      <select value={value} onChange={(event) => onChange(event.target.value)}>
+        {options.map((option) => <option value={option} key={option}>{option === 'all' ? `All ${label.toLowerCase()}` : option}</option>)}
+      </select>
+    </label>
+  );
+}
+
+function resultText(count) {
+  return count ? `${count} job${count === 1 ? '' : 's'} found` : 'No jobs found for this keyword.';
+}
+
+function JobCard({ job, onDetails }) {
   return (
     <article className="job-card">
       <div>
         <div className="job-meta-row"><p className="job-type">{job.type}</p><time dateTime={job.postedAt}>{getTimeAgo(job.postedAt)}</time></div>
         <h3>{job.title}</h3>
-        <p>{job.company} · {job.location}</p>
+        <p>{job.company} | {job.location}</p>
+      </div>
+      <div className="job-facts">
+        <span>{job.experience}</span>
+        <span>{job.salary}</span>
+        <span>{job.deadline}</span>
       </div>
       <ul>{job.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
-      <a href={job.url} target="_blank" rel="noreferrer">Apply / Details</a>
+      <div className="job-actions">
+        <button type="button" onClick={onDetails}>View details</button>
+        <a href={job.url} target="_blank" rel="noreferrer">Apply</a>
+      </div>
     </article>
+  );
+}
+
+function JobDetailsModal({ job, onClose }) {
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+    document.body.classList.add('modal-open');
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.classList.remove('modal-open');
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [onClose]);
+
+  return (
+    <div className="modal-backdrop" role="presentation" onClick={onClose}>
+      <article className="job-modal" role="dialog" aria-modal="true" aria-labelledby="job-modal-title" onClick={(event) => event.stopPropagation()}>
+        <button className="modal-close" type="button" aria-label="Close job details" onClick={onClose}>Close</button>
+        <p className="eyebrow">{categoryLabels[job.category]}</p>
+        <h2 id="job-modal-title">{job.title}</h2>
+        <p className="modal-company">{job.company} | {job.location}</p>
+        <div className="detail-grid">
+          <div><span>Experience</span><strong>{job.experience}</strong></div>
+          <div><span>Salary</span><strong>{job.salary}</strong></div>
+          <div><span>Deadline</span><strong>{job.deadline}</strong></div>
+          <div><span>Posted</span><strong>{getTimeAgo(job.postedAt)}</strong></div>
+        </div>
+        <h3>What to check before applying</h3>
+        <ul>{job.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
+        <div className="apply-note">Verify eligibility, deadline, salary, and the official application page before submitting your form.</div>
+        <a className="primary-action" href={job.url} target="_blank" rel="noreferrer">Open official link</a>
+      </article>
+    </div>
   );
 }
 
@@ -337,16 +458,20 @@ function Vlogs() {
         <p className="page-intro">Honest job reviews, daily routines, salary expectations, and career lessons to help you choose your next opportunity.</p>
       </section>
       <section className="latest-vlog">
-        <a className="latest-vlog-video featured-hnh" href={videos[0].url} target="_blank" rel="noreferrer" aria-label="Watch latest job experience vlog on YouTube">
-          <span className="latest-play" aria-hidden="true">▶</span>
-          <span className="latest-video-label">Watch latest vlog</span>
-        </a>
+        <YouTubeEmbed videoId="hnh0QdBsvkY" title="How this job actually feels" />
         <div className="latest-vlog-copy">
           <p className="eyebrow">Latest video</p>
           <h2>How this job actually feels</h2>
           <p>Watch the latest experience and get a real view of the routine, responsibilities, pressure, and learning that comes with the role.</p>
           <ul className="experience-points"><li>Day-to-day work experience</li><li>Honest challenges and useful lessons</li><li>Practical guidance for freshers</li></ul>
           <a className="primary-action" href={videos[0].url} target="_blank" rel="noreferrer">Watch on YouTube</a>
+        </div>
+      </section>
+      <section className="section">
+        <div className="section-heading"><h2>More career videos</h2></div>
+        <div className="embed-grid">
+          <YouTubeEmbed videoId="DPaKtALadyM" title="A day in my work life" />
+          <YouTubeEmbed videoId="hnh0QdBsvkY" title="Real work experience" />
         </div>
       </section>
       <section className="section"><VideoGrid /></section>
