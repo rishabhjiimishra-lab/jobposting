@@ -1582,3 +1582,351 @@ h3 {
     font-size: 0.76rem;
   }
 }
+
+
+/* =========================================================
+   GLASSMORPHISM UI ENHANCEMENT
+   Keeps the existing layout, colors and responsive behavior,
+   while adding depth, translucency and premium glass surfaces.
+   ========================================================= */
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.58);
+  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.72);
+  --glass-shadow: 0 18px 55px rgba(25, 26, 31, 0.10);
+  --glass-blur: 20px;
+  --glass-radius: 20px;
+}
+
+/* Soft atmospheric background */
+body {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(255, 0, 51, 0.075), transparent 28rem),
+    radial-gradient(circle at 92% 14%, rgba(18, 166, 166, 0.10), transparent 30rem),
+    radial-gradient(circle at 55% 82%, rgba(54, 84, 212, 0.065), transparent 34rem),
+    var(--paper);
+}
+
+/* Glass utility */
+.site-header,
+.nav,
+.page-preview-card,
+.job-brief,
+.job-search,
+.latest-jobs-panel,
+.job-page-search,
+.job-filters,
+.job-card,
+.video-card,
+.contact-panel a,
+.stats div,
+.jobs-cta,
+.telegram-cta {
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(145%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(145%);
+}
+
+/* Header */
+.site-header {
+  background: rgba(255, 255, 255, 0.64);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 12px 35px rgba(25, 26, 31, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.nav {
+  background: rgba(255, 255, 255, 0.34);
+  border-color: rgba(255, 255, 255, 0.58);
+}
+
+.nav a:hover,
+.nav a:focus-visible,
+.nav a[aria-current="page"] {
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 6px 18px rgba(25, 26, 31, 0.07);
+}
+
+/* Buttons get a subtle glass highlight */
+.subscribe-button,
+.primary-action,
+.secondary-action {
+  position: relative;
+  overflow: hidden;
+}
+
+.subscribe-button::after,
+.primary-action::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.24),
+    transparent 42%,
+    rgba(255, 255, 255, 0.10)
+  );
+  pointer-events: none;
+}
+
+/* Hero */
+.hero {
+  isolation: isolate;
+}
+
+.hero::before,
+.hero::after {
+  position: absolute;
+  content: "";
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.hero::before {
+  top: 10%;
+  left: 48%;
+  width: 260px;
+  height: 260px;
+  background: rgba(255, 0, 51, 0.08);
+}
+
+.hero::after {
+  right: 2%;
+  bottom: 6%;
+  width: 300px;
+  height: 300px;
+  background: rgba(18, 166, 166, 0.10);
+}
+
+/* Video surfaces */
+.featured-video .video-frame,
+.latest-vlog-video {
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  box-shadow:
+    0 28px 80px rgba(25, 26, 31, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.latest-play,
+.play-icon {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 12px 30px rgba(255, 0, 51, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30);
+}
+
+/* Cards */
+.page-preview-card,
+.video-card,
+.job-card,
+.job-brief,
+.job-search,
+.latest-jobs-panel,
+.job-page-search,
+.job-filters,
+.contact-panel a,
+.stats div {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--glass-radius);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.page-preview-card::before {
+  border-radius: inherit;
+  opacity: 0.92;
+}
+
+.page-preview-card:hover,
+.page-preview-card:focus-within,
+.video-card:hover,
+.video-card:focus-visible,
+.job-card:hover {
+  border-color: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 24px 60px rgba(25, 26, 31, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translateY(-6px);
+}
+
+/* Jobs section */
+.jobs-band {
+  background:
+    radial-gradient(circle at 85% 15%, rgba(18, 166, 166, 0.12), transparent 24rem),
+    rgba(238, 247, 246, 0.82);
+}
+
+.job-category > h3 {
+  letter-spacing: -0.02em;
+}
+
+.job-meta-row time,
+.job-shortcuts a,
+.latest-jobs-panel a,
+.filter-option {
+  background: rgba(255, 255, 255, 0.52);
+  border-color: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.filter-option.is-active {
+  background: linear-gradient(135deg, var(--red), #bd1744);
+  border-color: transparent;
+  box-shadow: 0 10px 24px rgba(255, 0, 51, 0.20);
+}
+
+/* Search */
+.job-search > div {
+  background: rgba(255, 255, 255, 0.50);
+  border-color: rgba(25, 26, 31, 0.22);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.job-search button {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* CTA */
+.jobs-cta {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(238, 247, 246, 0.68));
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 24px;
+  box-shadow:
+    0 20px 55px rgba(25, 26, 31, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Dark sections get premium dark glass */
+.about-band,
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(54, 84, 212, 0.24), transparent 24rem),
+    radial-gradient(circle at 12% 80%, rgba(18, 166, 166, 0.16), transparent 22rem),
+    #191a1f;
+}
+
+.about-band::before,
+.site-footer::before {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  right: -100px;
+  top: -120px;
+  content: "";
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 55px rgba(255, 255, 255, 0.025),
+    0 0 0 110px rgba(255, 255, 255, 0.018);
+  pointer-events: none;
+}
+
+.topics span,
+.site-footer .contact-panel a,
+.footer-links a,
+.site-footer > a {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+/* Contact cards */
+.contact-panel a {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.contact-panel a:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: 0 14px 32px rgba(25, 26, 31, 0.10);
+}
+
+/* Glass text hierarchy */
+.eyebrow {
+  letter-spacing: 0.08em;
+}
+
+h1,
+h2 {
+  letter-spacing: -0.045em;
+}
+
+/* Subtle page entrance */
+@keyframes glass-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.hero-orbit-fallback {
+  filter: drop-shadow(0 15px 30px rgba(18, 166, 166, 0.10));
+}
+
+/* Mobile tuning */
+@media (max-width: 860px) {
+  .site-header {
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .page-preview-card,
+  .video-card,
+  .job-card,
+  .job-brief,
+  .job-search,
+  .latest-jobs-panel,
+  .job-page-search,
+  .job-filters {
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    border-radius: 22px;
+  }
+
+  .jobs-cta {
+    border-radius: 20px;
+  }
+}
+
+/* Accessibility: don't depend on blur for contrast */
+@media (prefers-reduced-transparency: reduce) {
+  .site-header,
+  .nav,
+  .page-preview-card,
+  .job-brief,
+  .job-search,
+  .latest-jobs-panel,
+  .job-page-search,
+  .job-filters,
+  .job-card,
+  .video-card,
+  .contact-panel a,
+  .stats div,
+  .jobs-cta {
+    background: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
