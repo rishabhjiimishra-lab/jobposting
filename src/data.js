@@ -26,6 +26,24 @@ export const videos = [
 
 export const jobs = [
   {
+    title: 'Infosys Data Entry / Banking / Service Desk Roles',
+    company: 'Infosys BPM',
+    category: 'private',
+    type: 'Full Time',
+    location: 'Multiple',
+    experience: 'Freshers (0-1 Years)',
+    salary: 'Rs 3-5 LPA',
+    deadline: 'Apply soon',
+    postedAt: '2026-08-29T11:30:00+05:30',
+    details: [
+      'Role: Data Entry, Banking Process, and Service Desk openings',
+      'Education: Any Graduate',
+      'Experience: Freshers with 0-1 years of experience',
+      'Salary: Rs 3-5 LPA (Expected)',
+    ],
+    url: 'https://www.naukri.com/infosys-bpm-jobs?k=infosys%20bpm&experience=0',
+  },
+  {
     title: 'JPMC Data Analyst - AML/KYC Operations',
     company: 'JPMorgan Chase & Co.',
     category: 'private',

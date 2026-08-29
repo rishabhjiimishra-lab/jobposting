@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import * as THREE from 'three';
 import { categoryLabels, jobs, videos, youtubeChannel } from './data';
-import { getJobText, getTimeAgo, pageFromPath } from './utils';
+import { getJobText, getTimeAgo, isValidExternalUrl, pageFromPath } from './utils';
 import '../styles.css';
 
 const pages = ['home', 'vlogs', 'jobs', 'about', 'contact'];
@@ -97,45 +96,67 @@ function HeroCanvas() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-    let renderer;
-    try {
-      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    } catch {
-      canvas.closest('.hero')?.classList.add('hero--no-webgl');
-      return undefined;
-    }
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-    const group = new THREE.Group();
-    const mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(1.7, 1), new THREE.MeshBasicMaterial({ color: 0xff0033, wireframe: true, transparent: true, opacity: 0.45 }));
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(2.25, 0.012, 8, 48), new THREE.MeshBasicMaterial({ color: 0x12a6a6, transparent: true, opacity: 0.7 }));
-    group.add(mesh, ring);
-    scene.add(group);
-    camera.position.z = 7;
 
-    const resize = () => {
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-      renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-      camera.aspect = canvas.clientWidth / canvas.clientHeight;
-      camera.updateProjectionMatrix();
-    };
-    const observer = new ResizeObserver(resize);
-    observer.observe(canvas);
-    resize();
+    let cleanup = () => {};
+    let cancelled = false;
+    const start = async () => {
+      const THREE = await import('three');
+      if (cancelled) return;
 
-    let frameId = 0;
-    const animate = (time) => {
-      group.rotation.x = time * 0.00018;
-      group.rotation.y = time * 0.00028;
-      ring.rotation.z = -time * 0.00022;
-      renderer.render(scene, camera);
+      let renderer;
+      try {
+        renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      } catch {
+        canvas.closest('.hero')?.classList.add('hero--no-webgl');
+        return;
+      }
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+      const group = new THREE.Group();
+      const mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(1.7, 1), new THREE.MeshBasicMaterial({ color: 0xff0033, wireframe: true, transparent: true, opacity: 0.45 }));
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(2.25, 0.012, 8, 48), new THREE.MeshBasicMaterial({ color: 0x12a6a6, transparent: true, opacity: 0.7 }));
+      group.add(mesh, ring);
+      scene.add(group);
+      camera.position.z = 7;
+
+      const resize = () => {
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+      };
+      const observer = new ResizeObserver(resize);
+      observer.observe(canvas);
+      resize();
+
+      let frameId = 0;
+      const animate = (time) => {
+        group.rotation.x = time * 0.00018;
+        group.rotation.y = time * 0.00028;
+        ring.rotation.z = -time * 0.00022;
+        renderer.render(scene, camera);
+        frameId = requestAnimationFrame(animate);
+      };
       frameId = requestAnimationFrame(animate);
+
+      cleanup = () => {
+        cancelAnimationFrame(frameId);
+        observer.disconnect();
+        renderer.dispose();
+      };
     };
-    frameId = requestAnimationFrame(animate);
+
+    const idleId = window.requestIdleCallback ? window.requestIdleCallback(start, { timeout: 1200 }) : window.setTimeout(start, 300);
+
     return () => {
-      cancelAnimationFrame(frameId);
-      observer.disconnect();
-      renderer.dispose();
+      cancelled = true;
+      if (window.cancelIdleCallback) {
+        window.cancelIdleCallback(idleId);
+      } else {
+        window.clearTimeout(idleId);
+      }
+      cleanup();
     };
   }, []);
 
@@ -394,6 +415,8 @@ function resultText(count) {
 }
 
 function JobCard({ job, onDetails }) {
+  const canApply = isValidExternalUrl(job.url);
+
   return (
     <article className="job-card">
       <div>
@@ -409,13 +432,19 @@ function JobCard({ job, onDetails }) {
       <ul>{job.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
       <div className="job-actions">
         <button type="button" onClick={onDetails}>View details</button>
-        <a href={job.url} target="_blank" rel="noreferrer">Apply</a>
+        {canApply ? (
+          <a href={job.url} target="_blank" rel="noreferrer">Apply</a>
+        ) : (
+          <span className="apply-disabled" aria-disabled="true">Link soon</span>
+        )}
       </div>
     </article>
   );
 }
 
 function JobDetailsModal({ job, onClose }) {
+  const canApply = isValidExternalUrl(job.url);
+
   useEffect(() => {
     const onKeyDown = (event) => {
       if (event.key === 'Escape') onClose();
@@ -444,7 +473,11 @@ function JobDetailsModal({ job, onClose }) {
         <h3>What to check before applying</h3>
         <ul>{job.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
         <div className="apply-note">Verify eligibility, deadline, salary, and the official application page before submitting your form.</div>
-        <a className="primary-action" href={job.url} target="_blank" rel="noreferrer">Open official link</a>
+        {canApply ? (
+          <a className="primary-action" href={job.url} target="_blank" rel="noreferrer">Open official link</a>
+        ) : (
+          <p className="official-link-pending" role="status">Official link will be updated soon.</p>
+        )}
       </article>
     </div>
   );
@@ -557,7 +590,7 @@ function Footer({ navigate, homeContact }) {
           <ContactPanel />
         </section>
       )}
-      <span>© 2026 Rishabh Mishra</span>
+      <span>&copy; 2026 Rishabh Mishra</span>
       <nav className="footer-links" aria-label="Footer navigation">
         {pages.map((item) => <a key={item} href={pageHref[item]} onClick={(event) => navigate(item, event)}>{item[0].toUpperCase() + item.slice(1)}</a>)}
         <a href={youtubeChannel} target="_blank" rel="noreferrer">YouTube</a>

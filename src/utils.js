@@ -14,9 +14,12 @@ export const getJobText = (job) =>
   [job.title, job.company, job.category, job.type, job.location, ...job.details].join(' ').toLowerCase();
 
 export const pageFromPath = (pathname) => {
-  if (pathname.endsWith('/vlogs.html')) return 'vlogs';
-  if (pathname.endsWith('/jobs.html')) return 'jobs';
-  if (pathname.endsWith('/about.html')) return 'about';
-  if (pathname.endsWith('/contact.html')) return 'contact';
+  const cleanPath = pathname.replace(/\/$/, '');
+  if (cleanPath.endsWith('/vlogs') || cleanPath.endsWith('/vlogs.html')) return 'vlogs';
+  if (cleanPath.endsWith('/jobs') || cleanPath.endsWith('/jobs.html')) return 'jobs';
+  if (cleanPath.endsWith('/about') || cleanPath.endsWith('/about.html')) return 'about';
+  if (cleanPath.endsWith('/contact') || cleanPath.endsWith('/contact.html')) return 'contact';
   return 'home';
 };
+
+export const isValidExternalUrl = (value) => /^https?:\/\//.test(value);
