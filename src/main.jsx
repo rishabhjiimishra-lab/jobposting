@@ -221,9 +221,9 @@ function Home({ navigate }) {
 function FeaturedVideo() {
   return (
     <a className="featured-video" href={videos[0].url} target="_blank" rel="noreferrer" aria-label="Watch featured vlog on YouTube">
-      <div className="video-frame" role="img" aria-label="Featured vlog thumbnail from How this job actually feels">
+      <div className="video-frame" role="img" aria-label={`Featured vlog thumbnail from ${videos[0].title}`}>
         <div className="play-icon">Play</div>
-        <div className="video-meta"><span>Featured Vlog</span><strong>How this job actually feels: latest experience vlog</strong></div>
+        <div className="video-meta"><span>Featured Vlog</span><strong>{videos[0].title}: latest experience vlog</strong></div>
       </div>
     </a>
   );
@@ -491,11 +491,11 @@ function Vlogs() {
         <p className="page-intro">Honest job reviews, daily routines, salary expectations, and career lessons to help you choose your next opportunity.</p>
       </section>
       <section className="latest-vlog">
-        <YouTubeEmbed videoId="hnh0QdBsvkY" title="How this job actually feels" />
+        <YouTubeEmbed videoId="0v5ZH7Wnk9Y" title={videos[0].title} />
         <div className="latest-vlog-copy">
           <p className="eyebrow">Latest video</p>
-          <h2>How this job actually feels</h2>
-          <p>Watch the latest experience and get a real view of the routine, responsibilities, pressure, and learning that comes with the role.</p>
+          <h2>{videos[0].title}</h2>
+          <p>{videos[0].description}</p>
           <ul className="experience-points"><li>Day-to-day work experience</li><li>Honest challenges and useful lessons</li><li>Practical guidance for freshers</li></ul>
           <a className="primary-action" href={videos[0].url} target="_blank" rel="noreferrer">Watch on YouTube</a>
         </div>
