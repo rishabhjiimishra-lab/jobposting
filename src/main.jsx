@@ -568,11 +568,9 @@ function Contact() {
 function ContactPanel({ simple = false }) {
   return (
     <div className="contact-panel">
-      <a href="mailto:hello@example.com"><span>{simple ? 'Email: hello@example.com' : 'hello@example.com'}</span></a>
+      <a href="mailto:rishabhjiimishra@gmail.com"><span>{simple ? 'Email: rishabhjiimishra@gmail.com' : 'rishabhjiimishra@gmail.com'}</span></a>
       <a href={youtubeChannel} target="_blank" rel="noreferrer"><span>{simple ? 'YouTube Channel' : 'YouTube'}</span></a>
       <a href="https://www.instagram.com/" target="_blank" rel="noreferrer"><span>Instagram</span></a>
-      {!simple && <a href="https://www.tiktok.com/" target="_blank" rel="noreferrer"><span>TikTok</span></a>}
-      <a href="https://x.com/" target="_blank" rel="noreferrer"><span>X / Twitter</span></a>
     </div>
   );
 }
