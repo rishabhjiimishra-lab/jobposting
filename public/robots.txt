@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jobposting-pi.vercel.app/sitemap.xml
