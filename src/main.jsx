@@ -570,7 +570,7 @@ function ContactPanel({ simple = false }) {
     <div className="contact-panel">
       <a href="mailto:rishabhjiimishra@gmail.com"><span>{simple ? 'Email: rishabhjiimishra@gmail.com' : 'rishabhjiimishra@gmail.com'}</span></a>
       <a href={youtubeChannel} target="_blank" rel="noreferrer"><span>{simple ? 'YouTube Channel' : 'YouTube'}</span></a>
-      <a href="https://www.instagram.com/" target="_blank" rel="noreferrer"><span>Instagram</span></a>
+      <a href="https://www.instagram.com/_rishabh_ji_007/" target="_blank" rel="noreferrer"><span>Instagram</span></a>
     </div>
   );
 }

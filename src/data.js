@@ -4,7 +4,7 @@ export const videos = [
   {
     title: 'Latest YouTube Video',
     tag: 'Featured experience',
-    url: 'https://youtu.be/0v5ZH7Wnk9Y?si=jInw5aYuJqRfGGlB',
+    url: 'https://youtu.be/0v5ZH7Wnk9Y?si=Vrrkl5Qh2So85ilm',
     thumbnailClass: 'featured-hnh',
     description: 'Watch the latest career and job experience vlog on YouTube.',
   },
