@@ -2,11 +2,11 @@ export const youtubeChannel = 'https://www.youtube.com/@Tech_bhaiyaji';
 
 export const videos = [
   {
-    title: 'How this job actually feels',
+    title: 'Latest YouTube Video',
     tag: 'Featured experience',
-    url: 'https://youtu.be/hnh0QdBsvkY?si=VHWrQ9NconTE16m6',
+    url: 'https://youtu.be/0v5ZH7Wnk9Y?si=jInw5aYuJqRfGGlB',
     thumbnailClass: 'featured-hnh',
-    description: 'Watch the latest real experience vlog on YouTube.',
+    description: 'Watch the latest career and job experience vlog on YouTube.',
   },
   {
     title: 'A day in my work life',
