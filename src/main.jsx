@@ -220,12 +220,10 @@ function Home({ navigate }) {
 
 function FeaturedVideo() {
   return (
-    <a className="featured-video" href={videos[0].url} target="_blank" rel="noreferrer" aria-label="Watch featured vlog on YouTube">
-      <div className="video-frame" role="img" aria-label={`Featured vlog thumbnail from ${videos[0].title}`}>
-        <div className="play-icon">Play</div>
-        <div className="video-meta"><span>Featured Vlog</span><strong>{videos[0].title}: latest experience vlog</strong></div>
-      </div>
-    </a>
+    <div className="featured-video" aria-label={`Featured vlog: ${videos[0].title}`}>
+      <YouTubeEmbed videoId="0v5ZH7Wnk9Y" title={videos[0].title} />
+      <div className="video-meta"><span>Featured Vlog</span><strong>{videos[0].title}</strong></div>
+    </div>
   );
 }
 
