@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { categoryLabels, jobs, videos, youtubeChannel } from './data';
 import { getJobText, getTimeAgo, isValidExternalUrl, pageFromPath } from './utils';
 import '../styles.css';
@@ -47,6 +49,8 @@ function App() {
         {page === 'contact' && <Contact />}
       </main>
       <Footer navigate={navigate} homeContact={page === 'home'} />
+      <Analytics />
+      <SpeedInsights />
     </>
   );
 }
