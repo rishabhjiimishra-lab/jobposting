@@ -49,9 +49,31 @@ function App() {
         {page === 'contact' && <Contact />}
       </main>
       <Footer navigate={navigate} homeContact={page === 'home'} />
+      <WhatsAppAssistantButton />
       <Analytics />
       <SpeedInsights />
     </>
+  );
+}
+
+function WhatsAppAssistantButton() {
+  const phoneNumber = '918355006498';
+  const message = encodeURIComponent('Hi, I want to know more about the latest job updates and career guidance.');
+
+  return (
+    <a
+      className="assistant-fab"
+      href={`https://wa.me/${phoneNumber}?text=${message}`}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Chat on WhatsApp"
+    >
+      <span className="assistant-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M20.52 3.48A11.07 11.07 0 0 0 12.1 1C6.37 1 1.7 5.66 1.7 11.39c0 1.98.53 3.92 1.52 5.62L1.5 22.5l5.63-1.71c1.67.9 3.58 1.38 5.54 1.38h.02c5.72 0 10.38-4.66 10.38-10.38 0-2.77-1.08-5.36-3.05-7.31ZM12.1 19.4h-.02c-1.7 0-3.37-.46-4.82-1.32l-.35-.2-3.34 1.02 1.12-3.25-.23-.37A8.52 8.52 0 0 1 3.72 11.4c0-4.72 3.84-8.56 8.57-8.56 2.29 0 4.44.9 6.06 2.52A8.52 8.52 0 0 1 20.67 11.4c0 4.73-3.83 8.57-8.57 8.57Zm5.08-6.43c-.28-.14-1.66-.82-1.92-.91-.26-.09-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.19-.33.21-.61.07-.28-.14-1.18-.44-2.26-1.4-.83-.74-1.39-1.66-1.55-1.94-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.5.14-.16.18-.28.28-.46.09-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.56-.47-.48-.64-.49-.16-.01-.35-.01-.54-.01-.19 0-.49.07-.75.35-.26.28-1 .98-1 2.39 0 1.4 1.02 2.77 1.16 2.96.14.19 2.01 3.08 4.87 4.32.68.29 1.21.46 1.62.59.68.22 1.3.19 1.79.11.55-.08 1.66-.68 1.89-1.34.23-.66.23-1.22.16-1.34-.07-.12-.26-.19-.54-.34Z" fill="currentColor"/>
+        </svg>
+      </span>
+    </a>
   );
 }
 
