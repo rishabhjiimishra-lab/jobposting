@@ -508,30 +508,78 @@ function JobDetailsModal({ job, onClose }) {
 }
 
 function Vlogs() {
+  const featuredVideo = videos[0];
+  const moreVideos = videos.slice(1);
+  const categories = ['Career stories', 'Work life', 'Freshers guide', 'Job decisions'];
+
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero vlogs-hero">
+        <p className="eyebrow">Career stories & real experience</p>
         <h1>Real stories from work and life</h1>
-        <p className="page-intro">Honest job reviews, daily routines, salary expectations, and career lessons to help you choose your next opportunity.</p>
-      </section>
-      <section className="latest-vlog">
-        <YouTubeEmbed videoId="0v5ZH7Wnk9Y" title={videos[0].title} />
-        <div className="latest-vlog-copy">
-          <p className="eyebrow">Latest video</p>
-          <h2>{videos[0].title}</h2>
-          <p>{videos[0].description}</p>
-          <ul className="experience-points"><li>Day-to-day work experience</li><li>Honest challenges and useful lessons</li><li>Practical guidance for freshers</li></ul>
-          <a className="primary-action" href={videos[0].url} target="_blank" rel="noreferrer">Watch on YouTube</a>
+        <p className="page-intro">Honest job reviews, daily routines, salary expectations, and career lessons that help you choose your next opportunity with more clarity.</p>
+        <div className="vlogs-pills" aria-label="Vlog categories">
+          {categories.map((category) => (
+            <span className="vlog-pill" key={category}>{category}</span>
+          ))}
         </div>
       </section>
+
+      <section className="vlogs-shell">
+        <article className="vlogs-featured" aria-label="Featured vlog">
+          <div className="vlogs-featured-video">
+            <YouTubeEmbed videoId="0v5ZH7Wnk9Y" title={featuredVideo.title} />
+          </div>
+          <div className="vlogs-featured-copy">
+            <p className="eyebrow">Featured video</p>
+            <h2>{featuredVideo.title}</h2>
+            <p>{featuredVideo.description}</p>
+            <ul className="experience-points">
+              <li>Day-to-day work reality</li>
+              <li>Useful lessons for freshers</li>
+              <li>Honest career guidance</li>
+            </ul>
+            <div className="vlogs-featured-actions">
+              <a className="primary-action" href={featuredVideo.url} target="_blank" rel="noreferrer">Watch on YouTube</a>
+              <a className="secondary-action" href={youtubeChannel} target="_blank" rel="noreferrer">Visit channel</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
       <section className="section">
-        <div className="section-heading"><h2>More career videos</h2></div>
-        <div className="embed-grid">
-          <YouTubeEmbed videoId="DPaKtALadyM" title="A day in my work life" />
-          <YouTubeEmbed videoId="hnh0QdBsvkY" title="Real work experience" />
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">More videos</p>
+            <h2>Explore more career videos</h2>
+          </div>
+        </div>
+        <div className="vlogs-grid">
+          {moreVideos.map((video) => (
+            <article className="vlog-card" key={video.title}>
+              <div className="vlog-card-media">
+                <YouTubeEmbed videoId={video.url.split('/').pop().split('?')[0].replace('youtu.be/', '') || 'DPaKtALadyM'} title={video.title} />
+              </div>
+              <div className="vlog-card-copy">
+                <p className="video-tag">{video.tag}</p>
+                <h3>{video.title}</h3>
+                <p>{video.description}</p>
+                <a href={video.url} target="_blank" rel="noreferrer">Watch video</a>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
-      <section className="section"><VideoGrid /></section>
+
+      <section className="section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">All videos</p>
+            <h2>Browse the full library</h2>
+          </div>
+        </div>
+        <VideoGrid />
+      </section>
     </>
   );
 }
