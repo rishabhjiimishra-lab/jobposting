@@ -353,7 +353,12 @@ function Jobs() {
     experience: ['all', ...new Set(jobs.map((job) => job.experience))],
   }), []);
 
-  const filteredJobs = jobs.filter((job) => {
+  const sortedJobs = useMemo(
+    () => [...jobs].sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt)),
+    []
+  );
+
+  const filteredJobs = sortedJobs.filter((job) => {
     const query = filters.query.trim().toLowerCase();
     return (
       (filters.category === 'all' || job.category === filters.category) &&
