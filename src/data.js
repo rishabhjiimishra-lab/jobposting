@@ -34,7 +34,7 @@ export const jobs = [
     experience: 'Freshers (0-1 Years)',
     salary: 'Rs 4-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-09-25T12:00:00+05:30',
+    postedAt: '2026-10-10T11:45:00+05:30',
     details: [
       'Role: Non Voice Associate (Email Support)',
       'Education: Any Graduate',
@@ -52,7 +52,7 @@ export const jobs = [
     experience: 'Freshers (0-2 Years)',
     salary: 'Rs 4-8 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-09-25T11:00:00+05:30',
+    postedAt: '2026-10-10T11:30:00+05:30',
     details: [
       'Role: Associate Services Specialist',
       'Education: Any Graduate',
@@ -70,7 +70,7 @@ export const jobs = [
     experience: 'Freshers (0-1 Years)',
     salary: 'Rs 4-6 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-09-25T10:00:00+05:30',
+    postedAt: '2026-10-10T11:15:00+05:30',
     details: [
       'Role: Associate Analyst (Data Collection)',
       "Education: Any Bachelor's Degree",
@@ -88,7 +88,7 @@ export const jobs = [
     experience: 'Freshers',
     salary: 'Rs 3-4 LPA',
     deadline: '26 September 2026',
-    postedAt: '2026-09-25T09:00:00+05:30',
+    postedAt: '2026-10-10T11:00:00+05:30',
     details: [
       'Role: Process Associate',
       'Education: Any Graduate',
@@ -107,7 +107,7 @@ export const jobs = [
     experience: 'Freshers',
     salary: 'Rs 4-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-09-18T10:30:00+05:30',
+    postedAt: '2026-10-10T10:45:00+05:30',
     details: [
       'Role: Human Resources Intern',
       'Education: Any Graduate',
@@ -125,7 +125,7 @@ export const jobs = [
     experience: 'Freshers (0-1 Years)',
     salary: 'Rs 4-6 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-09-18T09:30:00+05:30',
+    postedAt: '2026-10-10T10:30:00+05:30',
     details: [
       'Role: Data Analyst',
       'Education: Any Graduate',
@@ -143,7 +143,7 @@ export const jobs = [
     experience: 'Freshers',
     salary: 'Rs 3-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-09-18T08:30:00+05:30',
+    postedAt: '2026-10-10T10:15:00+05:30',
     details: [
       'Role: Associate',
       'Education: Any Graduate',
@@ -162,7 +162,7 @@ export const jobs = [
     experience: 'Freshers (0-5 Years)',
     salary: 'Rs 4-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-09-18T07:30:00+05:30',
+    postedAt: '2026-10-10T10:00:00+05:30',
     details: [
       'Role: Data Analyst',
       'Education: Any Graduate',
@@ -181,7 +181,7 @@ export const jobs = [
     experience: 'Freshers',
     salary: 'Rs 4-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-09-05T00:00:00+05:30',
+    postedAt: '2026-10-10T09:45:00+05:30',
     details: [
       'Role: Internship opportunity for freshers',
       'Education: Any Graduate',
@@ -199,7 +199,7 @@ export const jobs = [
     experience: 'Freshers/Experienced',
     salary: 'Rs 4-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-09-05T00:00:00+05:30',
+    postedAt: '2026-10-10T09:30:00+05:30',
     details: [
       'Role: ML/GO AI Operations Associate',
       'Education: Any Graduate',
@@ -218,7 +218,7 @@ export const jobs = [
     experience: 'Freshers (0-1 Years)',
     salary: 'Rs 3-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-08-29T11:30:00+05:30',
+    postedAt: '2026-10-10T09:15:00+05:30',
     details: [
       'Role: Data Entry, Banking Process, and Service Desk openings',
       'Education: Any Graduate',
@@ -236,7 +236,7 @@ export const jobs = [
     experience: 'fresher-friendly',
     salary: 'Not disclosed',
     deadline: 'Apply soon',
-    postedAt: '2026-08-26T14:15:00+05:30',
+    postedAt: '2026-10-10T09:00:00+05:30',
     details: [
       'Domain: Banking and financial services with AML/KYC operations support',
       'Role: Data analysis, client onboarding, risk review, and compliance checks',
@@ -253,7 +253,7 @@ export const jobs = [
     experience: 'fresher-friendly',
     salary: 'Rs 4-6 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-08-27T00:00:00+05:30',
+    postedAt: '2026-10-10T08:45:00+05:30',
     details: [
       'Domain: Data engineering and application development',
       'Role: Junior Data Engineer / Application Development',
@@ -272,7 +272,7 @@ export const jobs = [
     experience: '0-2 Years',
     salary: 'Rs 4-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-08-27T00:00:00+05:30',
+    postedAt: '2026-10-10T08:30:00+05:30',
     details: [
       'Domain: IT services and customer support',
       'Role: IT Service Desk / Customer Service Coordinator',
@@ -291,7 +291,7 @@ export const jobs = [
     experience: 'As per notification',
     salary: 'As per notification',
     deadline: 'Check official notification',
-    postedAt: '2026-08-27T00:00:00+05:30',
+    postedAt: '2026-10-10T08:15:00+05:30',
     details: [
       'Organization: Indian Space Research Organisation (ISRO)',
       'Domain: Space Technology and Research',
@@ -310,7 +310,7 @@ export const jobs = [
     experience: 'Fresher',
     salary: 'As per apprenticeship norms',
     deadline: '28 August 2026',
-    postedAt: '2026-08-27T00:00:00+05:30',
+    postedAt: '2026-10-10T08:00:00+05:30',
     details: [
       'Organization: U R Rao Satellite Centre (URSC), ISRO',
       'Domain: Space Technology',
@@ -329,7 +329,7 @@ export const jobs = [
     experience: 'Fresher',
     salary: 'Not disclosed',
     deadline: 'Apply soon',
-    postedAt: '2026-08-26T10:30:00+05:30',
+    postedAt: '2026-10-10T07:45:00+05:30',
     details: ['Qualification: Any graduate or fresher', 'Skills: Excel, reporting, data analytics basics', 'Role: Process Executive'],
     url: youtubeChannel,
   },
@@ -342,7 +342,7 @@ export const jobs = [
     experience: 'Fresher',
     salary: 'Add expected salary here',
     deadline: 'Apply soon',
-    postedAt: '2026-08-26T08:15:00+05:30',
+    postedAt: '2026-10-10T07:30:00+05:30',
     details: ['Qualification: 12th pass, graduate, or fresher', 'Skills: Communication, email support, basic computer', 'Salary: Add expected salary here'],
     url: youtubeChannel,
   },
@@ -355,7 +355,7 @@ export const jobs = [
     experience: 'Student / Fresher',
     salary: 'Stipend expected',
     deadline: 'Add application deadline',
-    postedAt: '2026-08-25T18:45:00+05:30',
+    postedAt: '2026-10-10T07:15:00+05:30',
     details: ['Qualification: Student, fresher, or career starter', 'Skills: Instagram, Canva, basic editing', 'Last date: Add application deadline'],
     url: youtubeChannel,
   },
@@ -368,7 +368,7 @@ export const jobs = [
     experience: 'Fresher',
     salary: 'As per notification',
     deadline: 'Add application deadline',
-    postedAt: '2026-08-25T12:00:00+05:30',
+    postedAt: '2026-10-10T07:00:00+05:30',
     details: ['Qualification: Add official eligibility here', 'Age limit: Add details here', 'Last date: Add application deadline'],
     url: youtubeChannel,
   },
@@ -381,7 +381,7 @@ export const jobs = [
     experience: 'Fresher',
     salary: 'Not disclosed',
     deadline: 'Apply soon',
-    postedAt: '2026-08-24T20:30:00+05:30',
+    postedAt: '2026-10-10T06:45:00+05:30',
     details: ['Qualification: 12th pass or graduate', 'Skills: Voice process, customer handling', 'Shift: Rotational'],
     url: youtubeChannel,
   },
@@ -394,7 +394,7 @@ export const jobs = [
     experience: 'Freshers (0-5 Years)',
     salary: 'Rs 3-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-06T00:00:00+05:30',
+    postedAt: '2026-10-10T06:30:00+05:30',
     details: [
       'Role: Associate',
       'Education: Any Graduate',
@@ -413,7 +413,7 @@ export const jobs = [
     experience: 'Freshers (0-4 Years)',
     salary: 'Rs 5-8 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-06T00:00:00+05:30',
+    postedAt: '2026-10-10T06:15:00+05:30',
     details: [
       'Role: Junior Engineer Operations',
       'Education: Graduate',
@@ -431,7 +431,7 @@ export const jobs = [
     experience: 'Freshers',
     salary: 'Rs 3-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-06T00:00:00+05:30',
+    postedAt: '2026-10-10T06:00:00+05:30',
     details: [
       'Role: Associate',
       'Education: Any Graduate',
@@ -450,7 +450,7 @@ export const jobs = [
     experience: 'Freshers',
     salary: 'Rs 4-6 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-06T00:00:00+05:30',
+    postedAt: '2026-10-10T05:45:00+05:30',
     details: [
       'Role: Programmer/Analyst',
       'Education: Bachelor\'s/Master\'s Degree',
@@ -468,7 +468,7 @@ export const jobs = [
     experience: 'Freshers/Students',
     salary: 'Varies by role',
     deadline: 'Apply soon',
-    postedAt: '2026-10-06T00:00:00+05:30',
+    postedAt: '2026-10-10T05:30:00+05:30',
     details: [
       'Conducted By: TCS iON (Tata Consultancy Services)',
       'Hiring: TCS All India NQT – Ninja / Digital / Prime & 60+ corporates',
@@ -486,7 +486,7 @@ export const jobs = [
     experience: 'Freshers',
     salary: 'Rs 4-6 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-06T00:00:00+05:30',
+    postedAt: '2026-10-10T05:15:00+05:30',
     details: [
       'Role: Data Mapping Associate',
       'Education: Any Graduate',
@@ -504,7 +504,7 @@ export const jobs = [
     experience: 'Freshers/Experienced',
     salary: 'Rs 4-8 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-06T00:00:00+05:30',
+    postedAt: '2026-10-10T05:00:00+05:30',
     details: [
       'Role: Associate Analyst (Operations)',
       'Education: Any Graduate',
@@ -522,7 +522,7 @@ export const jobs = [
     experience: 'Freshers (0-5 Years)',
     salary: 'Rs 4-6 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-10T12:00:00+05:30',
+    postedAt: '2026-10-10T04:45:00+05:30',
     details: [
       'Roles: Relationship Manager, Associate, and Phone Banking',
       'Education: Any Graduate',
@@ -541,7 +541,7 @@ export const jobs = [
     experience: 'Freshers (0-1 Years)',
     salary: 'Rs 4-6 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-10T11:00:00+05:30',
+    postedAt: '2026-10-10T04:30:00+05:30',
     details: [
       'Role: Trainee',
       'Education: Any Graduate',
@@ -559,7 +559,7 @@ export const jobs = [
     experience: 'Freshers/Experienced',
     salary: 'Rs 4-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-10T10:00:00+05:30',
+    postedAt: '2026-10-10T04:15:00+05:30',
     details: [
       'Role: Associate',
       'Education: Any Graduate',
@@ -577,7 +577,7 @@ export const jobs = [
     experience: 'Freshers (0-2 Years)',
     salary: 'Rs 4-7 LPA',
     deadline: '21 October 2026',
-    postedAt: '2026-10-10T09:00:00+05:30',
+    postedAt: '2026-10-10T04:00:00+05:30',
     details: [
       'Role: Associate Data Science (Gen AI)',
       "Education: Bachelor's/Master's Degree",
@@ -596,7 +596,7 @@ export const jobs = [
     experience: 'Freshers',
     salary: 'Rs 4-5 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-10T08:00:00+05:30',
+    postedAt: '2026-10-10T03:45:00+05:30',
     details: [
       'Role: Human Resources Intern',
       'Education: Any Graduate',
@@ -615,7 +615,7 @@ export const jobs = [
     experience: 'Freshers',
     salary: 'Rs 4-7 LPA',
     deadline: 'Apply soon',
-    postedAt: '2026-10-10T07:00:00+05:30',
+    postedAt: '2026-10-10T03:30:00+05:30',
     details: [
       'Role: Data Analyst',
       "Education: Bachelor's/Master's Degree",

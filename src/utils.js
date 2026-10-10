@@ -1,6 +1,7 @@
 export const getTimeAgo = (dateValue) => {
   const diffMs = Date.now() - new Date(dateValue).getTime();
-  const minutes = Math.max(1, Math.floor(diffMs / 60000));
+  if (!Number.isFinite(diffMs) || diffMs < 60000) return 'Just now';
+  const minutes = Math.floor(diffMs / 60000);
   if (minutes < 60) return `${minutes} min ago`;
   const hours = Math.floor(minutes / 60);
   if (hours < 24) return `${hours} hr ago`;
