@@ -245,10 +245,12 @@ function Home({ navigate }) {
 }
 
 function FeaturedVideo() {
+  const featuredVideo = videos[0];
+
   return (
-    <div className="featured-video" aria-label={`Featured vlog: ${videos[0].title}`}>
-      <YouTubeEmbed videoId="0v5ZH7Wnk9Y" title={videos[0].title} />
-      <div className="video-meta"><span>Featured Vlog</span><strong>{videos[0].title}</strong></div>
+    <div className="featured-video" aria-label={`Featured vlog: ${featuredVideo.title}`}>
+      <YouTubeEmbed videoId={getYouTubeVideoId(featuredVideo.url)} title={featuredVideo.title} />
+      <div className="video-meta"><span>Featured Vlog</span><strong>{featuredVideo.title}</strong></div>
     </div>
   );
 }
@@ -317,6 +319,16 @@ function YouTubeEmbed({ videoId, title }) {
       />
     </div>
   );
+}
+
+function getYouTubeVideoId(url) {
+  try {
+    const parsedUrl = new URL(url);
+    if (parsedUrl.hostname.includes('youtu.be')) return parsedUrl.pathname.slice(1);
+    return parsedUrl.searchParams.get('v') || parsedUrl.pathname.split('/').filter(Boolean).pop() || '';
+  } catch {
+    return '';
+  }
 }
 
 function JobsCta({ navigate }) {
@@ -533,7 +545,7 @@ function Vlogs() {
       <section className="vlogs-shell">
         <article className="vlogs-featured" aria-label="Featured vlog">
           <div className="vlogs-featured-video">
-            <YouTubeEmbed videoId="0v5ZH7Wnk9Y" title={featuredVideo.title} />
+            <YouTubeEmbed videoId={getYouTubeVideoId(featuredVideo.url)} title={featuredVideo.title} />
           </div>
           <div className="vlogs-featured-copy">
             <p className="eyebrow">Featured video</p>
@@ -563,7 +575,7 @@ function Vlogs() {
           {moreVideos.map((video) => (
             <article className="vlog-card" key={video.title}>
               <div className="vlog-card-media">
-                <YouTubeEmbed videoId={video.url.split('/').pop().split('?')[0].replace('youtu.be/', '') || 'DPaKtALadyM'} title={video.title} />
+                <YouTubeEmbed videoId={getYouTubeVideoId(video.url)} title={video.title} />
               </div>
               <div className="vlog-card-copy">
                 <p className="video-tag">{video.tag}</p>
