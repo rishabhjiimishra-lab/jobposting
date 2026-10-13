@@ -295,9 +295,11 @@ function VideoSection({ navigate }) {
 function VideoGrid() {
   return (
     <div className="video-grid">
-      {videos.map((video) => (
+      {videos.map((video, index) => (
         <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.title}>
-          <div className={`thumbnail ${video.thumbnailClass}`} role="img" aria-label={`${video.title} video thumbnail`}><span>Play</span></div>
+          <div className={`thumbnail ${video.thumbnailClass}`} role="img" aria-label={`${video.title} video thumbnail`}>
+            <span>{index === 0 ? 'Latest' : 'Watch'}</span>
+          </div>
           <p className="video-tag">{video.tag}</p>
           <h3>{video.title}</h3>
           {video.description && <p>{video.description}</p>}
@@ -528,17 +530,39 @@ function Vlogs() {
   const featuredVideo = videos[0];
   const moreVideos = videos.slice(1);
   const categories = ['Career stories', 'Work life', 'Freshers guide', 'Job decisions'];
+  const vlogStats = [
+    ['2', 'Fresh videos'],
+    ['100%', 'Real talk'],
+    ['24/7', 'Career clarity'],
+  ];
 
   return (
     <>
       <section className="page-hero vlogs-hero">
-        <p className="eyebrow">Career stories & real experience</p>
-        <h1>Real stories from work and life</h1>
-        <p className="page-intro">Honest job reviews, daily routines, salary expectations, and career lessons that help you choose your next opportunity with more clarity.</p>
-        <div className="vlogs-pills" aria-label="Vlog categories">
-          {categories.map((category) => (
-            <span className="vlog-pill" key={category}>{category}</span>
-          ))}
+        <div className="vlogs-hero-copy">
+          <p className="eyebrow">Career stories & real experience</p>
+          <h1>Vlogs that make career choices feel clear.</h1>
+          <p className="page-intro">Watch practical job updates, fresher guidance, daily work context, and honest lessons before you apply or join.</p>
+          <div className="vlogs-pills" aria-label="Vlog categories">
+            {categories.map((category) => (
+              <span className="vlog-pill" key={category}>{category}</span>
+            ))}
+          </div>
+          <dl className="vlog-stats" aria-label="Vlog highlights">
+            {vlogStats.map(([value, label]) => (
+              <div key={label}><dt>{value}</dt><dd>{label}</dd></div>
+            ))}
+          </dl>
+        </div>
+        <a className="vlogs-hero-preview" href={featuredVideo.url} target="_blank" rel="noreferrer" aria-label={`Watch ${featuredVideo.title}`}>
+          <div className={`vlogs-preview-frame ${featuredVideo.thumbnailClass}`}>
+            <span className="vlogs-preview-play">Play</span>
+            <span className="vlogs-preview-label">Latest upload</span>
+          </div>
+          <strong>{featuredVideo.title}</strong>
+        </a>
+        <div className="vlog-marquee" aria-label="Vlog topics">
+          {['Jobs', 'Freshers', 'Interview prep', 'Salary', 'Remote work', 'Daily routine'].map((topic) => <span key={topic}>{topic}</span>)}
         </div>
       </section>
 
@@ -551,6 +575,7 @@ function Vlogs() {
             <p className="eyebrow">Featured video</p>
             <h2>{featuredVideo.title}</h2>
             <p>{featuredVideo.description}</p>
+            <div className="vlog-note">Start here if you want the newest update first.</div>
             <ul className="experience-points">
               <li>Day-to-day work reality</li>
               <li>Useful lessons for freshers</li>

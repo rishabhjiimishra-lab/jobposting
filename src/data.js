@@ -19,6 +19,42 @@ export const videos = [
 
 export const jobs = [
   {
+    title: 'Cisco Software Engineer (Evergreen)',
+    company: 'Cisco',
+    category: 'private',
+    type: 'Full Time',
+    location: 'India',
+    experience: 'Freshers/Experienced',
+    salary: 'Not disclosed',
+    deadline: 'Apply soon',
+    postedAt: '2026-10-13T10:30:00+05:30',
+    details: [
+      'Role: Software Engineer (Evergreen)',
+      'Department: India Engineering / UHR',
+      'Experience: Freshers/Experienced',
+      'Location: India',
+    ],
+    url: 'https://careers.cisco.com/global/en/job/CISCISGLOBAL2015359EXTERNALENGLOBAL/Software-Engineer-Evergreen-Full-Time-India-Engineering-UHR',
+  },
+  {
+    title: 'Amazon SDE-I, Rewards',
+    company: 'Amazon',
+    category: 'private',
+    type: 'Full Time',
+    location: 'Haryana',
+    experience: 'Freshers/Experienced',
+    salary: 'Not disclosed',
+    deadline: 'Apply soon',
+    postedAt: '2026-10-13T10:15:00+05:30',
+    details: [
+      'Role: SDE-I, Rewards',
+      'Job ID: 10555910',
+      'Company: ADCI - Haryana',
+      'Location: Haryana',
+    ],
+    url: 'https://www.amazon.jobs/en/jobs/10555910/sde-i-rewards',
+  },
+  {
     title: 'HCL Mass Hiring Freshers for Associate (Healthcare Process)',
     company: 'HCL',
     category: 'bpo',

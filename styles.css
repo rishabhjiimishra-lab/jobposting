@@ -484,3 +484,309 @@ h2 {
 .thumbnail.career-ormu {
   background: linear-gradient(140deg, rgba(25,26,31,0.08), rgba(25,26,31,0.58)), url("https://img.youtube.com/vi/orMu68eRytM/maxresdefault.jpg") center / cover no-repeat;
 }
+
+/* Creative vlog experience */
+.vlogs-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 440px);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+  min-height: 620px;
+  overflow: hidden;
+  padding-bottom: 88px;
+  background:
+    linear-gradient(120deg, rgba(25,26,31,.95), rgba(41,29,43,.88) 48%, rgba(10,92,96,.84)),
+    url("https://img.youtube.com/vi/0v5ZH7Wnk9Y/maxresdefault.jpg") center / cover no-repeat;
+  color: white;
+}
+
+.vlogs-hero::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(90deg, rgba(0,0,0,.9), transparent 75%);
+  pointer-events: none;
+}
+
+.vlogs-hero-copy,
+.vlogs-hero-preview,
+.vlog-marquee {
+  position: relative;
+  z-index: 1;
+}
+
+.vlogs-hero .eyebrow,
+.vlogs-hero .page-intro {
+  color: rgba(255,255,255,.82);
+}
+
+.vlogs-hero h1 {
+  max-width: 920px;
+  color: white;
+}
+
+.vlogs-hero .page-intro {
+  max-width: 680px;
+}
+
+.vlogs-pills {
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.vlog-pill {
+  color: white;
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.26);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+.vlog-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 560px;
+  margin: 34px 0 0;
+}
+
+.vlog-stats div {
+  padding: 16px;
+  background: rgba(255,255,255,.11);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+}
+
+.vlog-stats dt {
+  font-size: clamp(1.35rem, 2.5vw, 2.15rem);
+  font-weight: 800;
+}
+
+.vlog-stats dd {
+  margin: 4px 0 0;
+  color: rgba(255,255,255,.72);
+  font-size: .86rem;
+  font-weight: 700;
+}
+
+.vlogs-hero-preview {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  color: white;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 28px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.28);
+  transform: rotate(2deg);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.vlogs-hero-preview:hover,
+.vlogs-hero-preview:focus-visible {
+  transform: rotate(0deg) translateY(-6px);
+  box-shadow: 0 36px 100px rgba(0,0,0,.34);
+}
+
+.vlogs-preview-frame {
+  position: relative;
+  display: grid;
+  min-height: 250px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+.vlogs-preview-frame.career-0v5 {
+  background-image: linear-gradient(140deg, rgba(25,26,31,.06), rgba(25,26,31,.62)), url("https://img.youtube.com/vi/0v5ZH7Wnk9Y/maxresdefault.jpg");
+}
+
+.vlogs-preview-frame.career-ormu {
+  background-image: linear-gradient(140deg, rgba(25,26,31,.06), rgba(25,26,31,.62)), url("https://img.youtube.com/vi/orMu68eRytM/maxresdefault.jpg");
+}
+
+.vlogs-preview-play {
+  display: grid;
+  width: 76px;
+  height: 76px;
+  place-items: center;
+  color: white;
+  background: var(--red);
+  border: 1px solid rgba(255,255,255,.38);
+  border-radius: 50%;
+  box-shadow: 0 14px 32px rgba(0,0,0,.28);
+  font-size: .8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.vlogs-preview-label {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 8px 10px;
+  background: rgba(25,26,31,.74);
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.vlogs-hero-preview strong {
+  padding: 0 4px 4px;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.vlog-marquee {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+  overflow: hidden;
+  padding-top: 8px;
+}
+
+.vlog-marquee span {
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  color: rgba(255,255,255,.84);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  font-size: .82rem;
+  font-weight: 800;
+}
+
+.vlogs-shell {
+  margin-top: -54px;
+  margin-bottom: 32px;
+}
+
+.vlogs-featured {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(14px, 2vw, 22px);
+  background: rgba(255,255,255,.84);
+  border-color: rgba(255,255,255,.86);
+  border-radius: 30px;
+  box-shadow: 0 28px 80px rgba(25,26,31,.14);
+}
+
+.vlogs-featured::after {
+  position: absolute;
+  right: -90px;
+  bottom: -120px;
+  width: 260px;
+  height: 260px;
+  content: "";
+  background: radial-gradient(circle, rgba(18,166,166,.16), transparent 68%);
+  pointer-events: none;
+}
+
+.vlogs-featured-video .embed-card,
+.vlog-card-media .embed-card {
+  border-radius: 22px;
+}
+
+.vlog-note {
+  width: fit-content;
+  padding: 10px 12px;
+  color: #0d615f;
+  background: rgba(18,166,166,.12);
+  border: 1px solid rgba(18,166,166,.18);
+  border-radius: 999px;
+  font-size: .86rem;
+  font-weight: 800;
+}
+
+.vlogs-grid {
+  align-items: stretch;
+}
+
+.vlog-card {
+  display: grid;
+  background: rgba(255,255,255,.74);
+  border-color: rgba(255,255,255,.86);
+  box-shadow: 0 18px 50px rgba(25,26,31,.09);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.vlog-card:hover,
+.vlog-card:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 70px rgba(25,26,31,.14);
+}
+
+.vlog-card-copy a {
+  width: fit-content;
+  padding: 9px 12px;
+  color: white;
+  background: var(--ink);
+  border-radius: 999px;
+}
+
+.video-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.video-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.thumbnail span {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  background: rgba(255,0,51,.92);
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 50%;
+  box-shadow: 0 14px 28px rgba(25,26,31,.24);
+}
+
+@media (max-width: 860px) {
+  .vlogs-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding-bottom: 76px;
+  }
+
+  .vlogs-hero-preview {
+    transform: none;
+  }
+
+  .vlog-stats {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .vlogs-shell {
+    margin-top: -42px;
+  }
+}
+
+@media (max-width: 520px) {
+  .vlog-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .vlogs-preview-frame {
+    min-height: 210px;
+  }
+
+  .vlog-marquee {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .vlog-marquee::-webkit-scrollbar {
+    display: none;
+  }
+}
