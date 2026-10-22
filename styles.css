@@ -790,3 +790,72 @@ h2 {
     display: none;
   }
 }
+
+.job-seeker-guide {
+  background: white;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.guide-grid article,
+.directory-note,
+.editorial-copy {
+  padding: 22px;
+  background: rgba(238,247,246,.72);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.guide-grid h3,
+.directory-note h3 {
+  margin-top: 0;
+}
+
+.guide-grid p,
+.directory-note p,
+.editorial-copy p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.directory-note {
+  margin-top: 18px;
+  background: #fff8eb;
+}
+
+.directory-note a,
+.editorial-copy a {
+  color: var(--red);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.editorial-standards {
+  background: white;
+}
+
+.editorial-copy {
+  max-width: 900px;
+  margin-top: 24px;
+  background: rgba(251,250,247,.82);
+}
+
+.editorial-copy p:first-child {
+  margin-top: 0;
+}
+
+.editorial-copy p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .guide-grid {
+    grid-template-columns: 1fr;
+  }
+}

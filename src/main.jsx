@@ -3,16 +3,16 @@ import { createRoot } from 'react-dom/client';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { categoryLabels, jobs, videos, youtubeChannel } from './data';
-import { getJobText, getTimeAgo, isValidExternalUrl, pageFromPath } from './utils';
+import { getDeadlineLabel, getJobText, getTimeAgo, isJobCurrent, pageFromPath } from './utils';
 import '../styles.css';
 
 const pages = ['home', 'vlogs', 'jobs', 'about', 'contact'];
-const pageHref = { home: 'index.html', vlogs: 'vlogs.html', jobs: 'jobs.html', about: 'about.html', contact: 'contact.html' };
+const pageHref = { home: '/', vlogs: '/vlogs', jobs: '/jobs', about: '/about', contact: '/contact' };
 const meta = {
-  home: ['Rishabh Mishra | Latest Jobs, Job Experiences & Vlogs', 'Latest job alerts, fresher openings, real job experiences, reviews, and career vlogs by Rishabh Mishra.'],
-  vlogs: ['Vlogs | Rishabh Mishra', 'Watch real job experience vlogs, daily routines, salary expectations, and useful career stories.'],
-  jobs: ['Jobs | Rishabh Mishra', 'Search private, government, work-from-home, internship, and BPO job openings with filters and details.'],
-  about: ['About | Rishabh Mishra', "Learn about Rishabh Mishra's job updates and career experience platform."],
+  home: ['Rishabh Mishra | Latest Jobs, Job Experiences & Vlogs', 'Recent job listings with source links and career and fresher-guidance videos by Rishabh Mishra.'],
+  vlogs: ['Vlogs | Rishabh Mishra', 'Watch career-update and fresher-guidance videos by Rishabh Mishra.'],
+  jobs: ['Jobs | Rishabh Mishra', 'Browse recent job listings with source links, clear deadline and salary caveats, and practical checks before applying.'],
+  about: ['About | Rishabh Mishra', 'Learn who maintains this independent job directory, how listings are summarized, and how to report corrections.'],
   contact: ['Contact | Rishabh Mishra', 'Contact Rishabh Mishra for job updates, collaborations, and career questions.'],
 };
 
@@ -93,7 +93,7 @@ function Header({ page, navigate }) {
 
   return (
     <header className={`site-header ${open ? 'is-menu-open' : ''}`}>
-      <a className="brand" href="index.html" onClick={(event) => go('home', event)} aria-label="Rishabh Mishra home">
+      <a className="brand" href="/" onClick={(event) => go('home', event)} aria-label="Rishabh Mishra home">
         <span className="brand-mark">RM</span>
         <span>Rishabh Mishra</span>
       </a>
@@ -190,7 +190,12 @@ function HeroCanvas() {
 }
 
 function Home({ navigate }) {
-  const latestJobs = useMemo(() => [...jobs].sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt)).slice(0, 5), []);
+  const currentJobs = useMemo(
+    () => jobs.filter((job) => isJobCurrent(job)).sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt)),
+    []
+  );
+  const latestJobs = currentJobs.slice(0, 5);
+  const featuredJob = latestJobs[0];
   return (
     <>
       <section className="hero" id="home">
@@ -199,40 +204,52 @@ function Home({ navigate }) {
         <div className="hero-copy">
           <p className="eyebrow">Latest jobs, real experiences, and vlogs</p>
           <h1>Rishabh Mishra</h1>
-          <p className="hero-text">Discover current job openings, fresher opportunities, work-from-home roles, government job alerts, and honest workplace experiences that explain the role, expected salary, application process, and day-to-day reality.</p>
+          <p className="hero-text">Browse recent job listings and career videos. Each job entry links to its source so you can confirm the employer's current requirements, pay, and application deadline before taking action.</p>
           <div className="hero-actions">
-            <a className="primary-action" href="jobs.html" onClick={(event) => navigate('jobs', event)}>See Latest Jobs</a>
-            <a className="secondary-action" href="vlogs.html" onClick={(event) => navigate('vlogs', event)}>Watch Vlogs</a>
+            <a className="primary-action" href="/jobs" onClick={(event) => navigate('jobs', event)}>See Latest Jobs</a>
+            <a className="secondary-action" href="/vlogs" onClick={(event) => navigate('vlogs', event)}>Watch Vlogs</a>
           </div>
           <dl className="stats" aria-label="Channel statistics">
-            <div><dt>{jobs.length}+</dt><dd>Openings</dd></div>
-            <div><dt>4</dt><dd>Categories</dd></div>
-            <div><dt>Free</dt><dd>Updates</dd></div>
+            <div><dt>{currentJobs.length}</dt><dd>Current listings</dd></div>
+            <div><dt>{new Set(currentJobs.map((job) => job.category)).size}</dt><dd>Categories with listings</dd></div>
+            <div><dt>Free</dt><dd>To browse</dd></div>
           </dl>
         </div>
         <FeaturedVideo />
       </section>
       <section className="job-brief-section" aria-labelledby="job-brief-title">
-        <article className="job-brief">
-          <p className="eyebrow">Featured job update</p>
-          <h2 id="job-brief-title">Cognizant Recruitment Hiring Freshers for Data Analytics (Process Executive) | Any Graduates</h2>
-          <time dateTime="2026-08-19">August 19, 2026</time>
-          <a className="telegram-cta" href="https://t.me/" target="_blank" rel="noreferrer">Join Our Official Telegram Channel</a>
-          <div className="job-brief-visual" role="img" aria-label="Data analytics career opportunity visual"><span>DATA<br />ANALYTICS</span></div>
-          <p>Cognizant is hiring freshers for a Process Executive opportunity in the data analytics domain. Explore the role, eligibility, work location, and application details before applying.</p>
-          <a className="secondary-action" href="jobs.html?category=private" onClick={(event) => navigate('jobs', event, '?category=private')}>See more jobs</a>
-        </article>
+        {featuredJob ? (
+          <article className="job-brief">
+            <p className="eyebrow">Recently listed opportunity</p>
+            <h2 id="job-brief-title">{featuredJob.title}</h2>
+            <time dateTime={featuredJob.postedAt}>Added {getTimeAgo(featuredJob.postedAt)}</time>
+            <p>{featuredJob.company} · {featuredJob.location} · {featuredJob.experience}</p>
+            <p>Review the listing source for current eligibility, compensation, and application dates. Details on this site are a summary and may change.</p>
+            <div className="hero-actions">
+              <a className="primary-action" href={featuredJob.url} target="_blank" rel="noreferrer">View source listing</a>
+              <a className="secondary-action" href="/jobs" onClick={(event) => navigate('jobs', event)}>Browse all listings</a>
+            </div>
+          </article>
+        ) : (
+          <article className="job-brief">
+            <p className="eyebrow">Job listings</p>
+            <h2 id="job-brief-title">No current listings are available.</h2>
+            <p>Check back after new opportunities have been reviewed and added.</p>
+          </article>
+        )}
         <aside className="job-sidebar" aria-label="Latest jobs">
           <div className="latest-jobs-panel">
-            <h3>Latest Jobs</h3>
-            <div className="latest-jobs-list">
-              {latestJobs.map((job) => (
-                <a key={job.title} href={`jobs.html?category=${job.category}`} onClick={(event) => navigate('jobs', event, `?category=${job.category}`)}>
-                  <strong>{job.title}</strong>
-                  <span>{job.company} | {job.location} | {getTimeAgo(job.postedAt)}</span>
-                </a>
-              ))}
-            </div>
+            <h3>Recently listed</h3>
+            {latestJobs.length ? (
+              <div className="latest-jobs-list">
+                {latestJobs.map((job) => (
+                  <a key={job.title} href={`/jobs?category=${job.category}`} onClick={(event) => navigate('jobs', event, `?category=${job.category}`)}>
+                    <strong>{job.title}</strong>
+                    <span>{job.company} | {job.location} | Added {getTimeAgo(job.postedAt)}</span>
+                  </a>
+                ))}
+              </div>
+            ) : <p>No current listings. Please check again later.</p>}
           </div>
         </aside>
       </section>
@@ -257,7 +274,7 @@ function FeaturedVideo() {
 
 function PagePreview({ navigate }) {
   const previews = [
-    ['vlogs', 'Video', 'Vlogs', 'Real work stories', 'Watch job routines, workplace lessons, and honest experience videos before choosing a role.'],
+    ['vlogs', 'Video', 'Vlogs', 'Career and fresher videos', 'Watch career-update and fresher-guidance videos from the linked YouTube channel.'],
     ['jobs', 'Jobs', 'Jobs', 'Fresh openings', 'Browse private, government, internship, BPO, and work-from-home opportunities by category.'],
     ['about', 'Info', 'About', 'Clear career context', 'Understand why the platform exists and how it helps job seekers compare opportunities.'],
     ['contact', 'Mail', 'Contact', 'Send updates', 'Share openings, collaboration requests, viewer questions, or useful career resources.'],
@@ -285,7 +302,7 @@ function VideoSection({ navigate }) {
     <section className="section" id="vlogs">
       <div className="section-heading">
         <h2>Real stories from work and life</h2>
-        {navigate && <a className="primary-action" href="vlogs.html" onClick={(event) => navigate('vlogs', event)}>See more stories</a>}
+        {navigate && <a className="primary-action" href="/vlogs" onClick={(event) => navigate('vlogs', event)}>See more stories</a>}
       </div>
       <VideoGrid />
     </section>
@@ -342,11 +359,11 @@ function JobsCta({ navigate }) {
         <p>Explore curated private, government, work-from-home, and BPO opportunities built for students, freshers, and growing professionals.</p>
         <nav className="job-shortcuts" aria-label="Browse jobs by category">
           {Object.entries(categoryLabels).map(([category, label]) => (
-            <a href={`jobs.html?category=${category}`} onClick={(event) => navigate('jobs', event, `?category=${category}`)} key={category}>{label}</a>
+            <a href={`/jobs?category=${category}`} onClick={(event) => navigate('jobs', event, `?category=${category}`)} key={category}>{label}</a>
           ))}
         </nav>
       </div>
-      <a className="primary-action" href="jobs.html" onClick={(event) => navigate('jobs', event)}>See more jobs</a>
+      <a className="primary-action" href="/jobs" onClick={(event) => navigate('jobs', event)}>See more jobs</a>
     </section>
   );
 }
@@ -368,7 +385,7 @@ function Jobs() {
   }), []);
 
   const sortedJobs = useMemo(
-    () => [...jobs].sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt)),
+    () => jobs.filter((job) => isJobCurrent(job)).sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt)),
     []
   );
 
@@ -389,9 +406,9 @@ function Jobs() {
   return (
     <>
       <section className="page-hero">
-        <p className="eyebrow">Latest jobs 2026</p>
-        <h1>Fresh job openings for students and job seekers</h1>
-        <p className="page-intro">Browse private opportunities, government technology roles, work-from-home openings, internships, and BPO jobs in one focused place.</p>
+        <p className="eyebrow">Job directory · {sortedJobs.length} current listings</p>
+        <h1>Job listings with source links and practical checks</h1>
+        <p className="page-intro">Browse recent private, government, remote, internship, and BPO listings. Each entry links to its source; confirm availability and every requirement there before applying.</p>
       </section>
       <section className="jobs-band jobs-page-band">
         <form className="job-search job-page-search" role="search" onSubmit={(event) => event.preventDefault()}>
@@ -437,6 +454,7 @@ function Jobs() {
         </div>
         {!filteredJobs.length && <p className="empty-state">No matching jobs right now. Try clearing one filter or searching a broader skill.</p>}
       </section>
+      <JobSeekerGuide />
       {selectedJob && <JobDetailsModal job={selectedJob} onClose={() => setSelectedJob(null)} />}
     </>
   );
@@ -458,36 +476,30 @@ function resultText(count) {
 }
 
 function JobCard({ job, onDetails }) {
-  const canApply = isValidExternalUrl(job.url);
+  const sourceHost = new URL(job.url).hostname.replace(/^www\./, '');
 
   return (
     <article className="job-card">
       <div>
-        <div className="job-meta-row"><p className="job-type">{job.type}</p><time dateTime={job.postedAt}>{getTimeAgo(job.postedAt)}</time></div>
+        <div className="job-meta-row"><p className="job-type">{job.type}</p><time dateTime={job.postedAt}>Added {getTimeAgo(job.postedAt)}</time></div>
         <h3>{job.title}</h3>
         <p>{job.company} | {job.location}</p>
       </div>
       <div className="job-facts">
         <span>{job.experience}</span>
         <span>{job.salary}</span>
-        <span>{job.deadline}</span>
+        <span>{getDeadlineLabel(job.deadline)}</span>
       </div>
       <ul>{job.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
       <div className="job-actions">
         <button type="button" onClick={onDetails}>View details</button>
-        {canApply ? (
-          <a href={job.url} target="_blank" rel="noreferrer">Apply</a>
-        ) : (
-          <span className="apply-disabled" aria-disabled="true">Link soon</span>
-        )}
+        <a href={job.url} target="_blank" rel="noreferrer">View source · {sourceHost}</a>
       </div>
     </article>
   );
 }
 
 function JobDetailsModal({ job, onClose }) {
-  const canApply = isValidExternalUrl(job.url);
-
   useEffect(() => {
     const onKeyDown = (event) => {
       if (event.key === 'Escape') onClose();
@@ -510,30 +522,53 @@ function JobDetailsModal({ job, onClose }) {
         <div className="detail-grid">
           <div><span>Experience</span><strong>{job.experience}</strong></div>
           <div><span>Salary</span><strong>{job.salary}</strong></div>
-          <div><span>Deadline</span><strong>{job.deadline}</strong></div>
-          <div><span>Posted</span><strong>{getTimeAgo(job.postedAt)}</strong></div>
+          <div><span>Deadline</span><strong>{getDeadlineLabel(job.deadline)}</strong></div>
+          <div><span>Added here</span><strong>{getTimeAgo(job.postedAt)}</strong></div>
         </div>
-        <h3>What to check before applying</h3>
+        <h3>Details included in this listing</h3>
         <ul>{job.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
-        <div className="apply-note">Verify eligibility, deadline, salary, and the official application page before submitting your form.</div>
-        {canApply ? (
-          <a className="primary-action" href={job.url} target="_blank" rel="noreferrer">Open official link</a>
-        ) : (
-          <p className="official-link-pending" role="status">Official link will be updated soon.</p>
-        )}
+        <div className="apply-note">This site is an independent directory, not the employer. Pay and deadline information may be estimates or unavailable. Confirm the role, requirements, and application status on the source page before sharing personal information.</div>
+        <a className="primary-action" href={job.url} target="_blank" rel="noreferrer">Open source listing</a>
       </article>
     </div>
+  );
+}
+
+function JobSeekerGuide() {
+  return (
+    <section className="section job-seeker-guide" aria-labelledby="job-guide-title">
+      <p className="eyebrow">A safer application process</p>
+      <h2 id="job-guide-title">A three-step check before you apply</h2>
+      <div className="guide-grid">
+        <article>
+          <h3>1. Confirm the listing</h3>
+          <p>Open the source link and match the employer, exact role title, location, job ID, and application page. A listing on a job board is not the same as confirmation from the employer.</p>
+        </article>
+        <article>
+          <h3>2. Check the requirements</h3>
+          <p>Read the original eligibility, experience, work arrangement, shift, pay, and closing date. Treat “not specified” and estimated salary as unknown until the employer confirms them.</p>
+        </article>
+        <article>
+          <h3>3. Protect your information</h3>
+          <p>Do not pay a recruiter to secure an interview or offer. Never disclose passwords, one-time passcodes, card PINs, or online-banking credentials during recruitment.</p>
+        </article>
+      </div>
+      <div className="directory-note">
+        <h3>How to use this directory</h3>
+        <p>We provide a short summary and a link to the page where the opportunity was listed. The source is authoritative: roles can close without notice, and pay or eligibility details can change. Listings are removed from this page after 14 days or when a stated deadline passes; that timing does not certify that a role is still open.</p>
+        <p>Found an inaccurate or closed listing? Email <a href="mailto:rishabhjiimishra@gmail.com">rishabhjiimishra@gmail.com</a> with the job title and source link so it can be reviewed.</p>
+      </div>
+    </section>
   );
 }
 
 function Vlogs() {
   const featuredVideo = videos[0];
   const moreVideos = videos.slice(1);
-  const categories = ['Career stories', 'Work life', 'Freshers guide', 'Job decisions'];
   const vlogStats = [
-    ['2', 'Fresh videos'],
-    ['100%', 'Real talk'],
-    ['24/7', 'Career clarity'],
+    [String(videos.length), 'Videos listed'],
+    ['Free', 'To watch'],
+    ['YouTube', 'Video host'],
   ];
 
   return (
@@ -542,12 +577,7 @@ function Vlogs() {
         <div className="vlogs-hero-copy">
           <p className="eyebrow">Career stories & real experience</p>
           <h1>Vlogs that make career choices feel clear.</h1>
-          <p className="page-intro">Watch practical job updates, fresher guidance, daily work context, and honest lessons before you apply or join.</p>
-          <div className="vlogs-pills" aria-label="Vlog categories">
-            {categories.map((category) => (
-              <span className="vlog-pill" key={category}>{category}</span>
-            ))}
-          </div>
+          <p className="page-intro">Watch the career-update and fresher-guidance videos listed here. Job details and application requirements should always be confirmed with the linked employer or source.</p>
           <dl className="vlog-stats" aria-label="Vlog highlights">
             {vlogStats.map(([value, label]) => (
               <div key={label}><dt>{value}</dt><dd>{label}</dd></div>
@@ -557,13 +587,10 @@ function Vlogs() {
         <a className="vlogs-hero-preview" href={featuredVideo.url} target="_blank" rel="noreferrer" aria-label={`Watch ${featuredVideo.title}`}>
           <div className={`vlogs-preview-frame ${featuredVideo.thumbnailClass}`}>
             <span className="vlogs-preview-play">Play</span>
-            <span className="vlogs-preview-label">Latest upload</span>
+            <span className="vlogs-preview-label">Featured video</span>
           </div>
           <strong>{featuredVideo.title}</strong>
         </a>
-        <div className="vlog-marquee" aria-label="Vlog topics">
-          {['Jobs', 'Freshers', 'Interview prep', 'Salary', 'Remote work', 'Daily routine'].map((topic) => <span key={topic}>{topic}</span>)}
-        </div>
       </section>
 
       <section className="vlogs-shell">
@@ -575,12 +602,7 @@ function Vlogs() {
             <p className="eyebrow">Featured video</p>
             <h2>{featuredVideo.title}</h2>
             <p>{featuredVideo.description}</p>
-            <div className="vlog-note">Start here if you want the newest update first.</div>
-            <ul className="experience-points">
-              <li>Day-to-day work reality</li>
-              <li>Useful lessons for freshers</li>
-              <li>Honest career guidance</li>
-            </ul>
+            <div className="vlog-note">This video is hosted on YouTube. Use the job directory for source links and application checks.</div>
             <div className="vlogs-featured-actions">
               <a className="primary-action" href={featuredVideo.url} target="_blank" rel="noreferrer">Watch on YouTube</a>
               <a className="secondary-action" href={youtubeChannel} target="_blank" rel="noreferrer">Visit channel</a>
@@ -589,11 +611,11 @@ function Vlogs() {
         </article>
       </section>
 
-      <section className="section">
+      {moreVideos.length > 0 && <section className="section">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">More videos</p>
-            <h2>Explore more career videos</h2>
+            <p className="eyebrow">More from the channel</p>
+            <h2>Another video</h2>
           </div>
         </div>
         <div className="vlogs-grid">
@@ -606,22 +628,12 @@ function Vlogs() {
                 <p className="video-tag">{video.tag}</p>
                 <h3>{video.title}</h3>
                 <p>{video.description}</p>
-                <a href={video.url} target="_blank" rel="noreferrer">Watch video</a>
+                <a href={video.url} target="_blank" rel="noreferrer">Watch on YouTube</a>
               </div>
             </article>
           ))}
         </div>
-      </section>
-
-      <section className="section">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">All videos</p>
-            <h2>Browse the full library</h2>
-          </div>
-        </div>
-        <VideoGrid />
-      </section>
+      </section>}
     </>
   );
 }
@@ -632,15 +644,24 @@ function About() {
       <section className="page-hero">
         <p className="eyebrow">About this platform</p>
         <h1>Make better career decisions with real information.</h1>
-        <p className="page-intro">Rishabh Mishra brings together private job updates, government tech alerts, work-from-home roles, internships, and honest workplace experience vlogs.</p>
+        <p className="page-intro">Rishabh Mishra maintains an independent directory of recent private, government, remote, internship, and BPO job listings, alongside career and fresher-guidance videos.</p>
       </section>
       <AboutBand page />
+      <section className="section editorial-standards" aria-labelledby="editorial-title">
+        <p className="eyebrow">Editorial standards</p>
+        <h2 id="editorial-title">Who publishes these updates and how to use them</h2>
+        <div className="editorial-copy">
+          <p>This independent site is maintained by Rishabh Mishra. Job entries are summaries with a link to the page where the opportunity was listed; this site is not an employer, recruiter, or hiring agent.</p>
+          <p>We avoid filling in missing facts: when a deadline is not provided, the entry says so; compensation may be an estimate. The employer or linked source is authoritative, and openings can change or close without notice.</p>
+          <p>Listings are removed after 14 days from being added here or after a stated closing date. This is a freshness limit, not a real-time check. Please <a href="mailto:rishabhjiimishra@gmail.com">email a correction</a> with the job title and source link if you spot an error.</p>
+        </div>
+      </section>
       <section className="section faq-section" aria-labelledby="faq-title">
         <p className="eyebrow">Common questions</p>
         <h2 id="faq-title">Career information, made clear.</h2>
         <div className="faq-list">
           <details><summary>What can I find here?</summary><p>Private jobs, government technology alerts, fresher opportunities, work-from-home roles, and real experience vlogs.</p></details>
-          <details><summary>Are the job details official?</summary><p>Always verify eligibility, deadlines, salary, and the official application page before applying.</p></details>
+          <details><summary>Are the listings confirmed by employers?</summary><p>No. This independent directory summarizes public listings and links to their source. Confirm the employer, role, eligibility, pay, deadline, and current status on the source page before applying.</p></details>
           <details><summary>Where can I watch the latest videos?</summary><p>Visit the Vlogs page or follow Rishabh Mishra on the linked YouTube channel.</p></details>
         </div>
       </section>
@@ -654,7 +675,7 @@ function AboutBand({ page = false }) {
       <div className="about-copy">
         <p className="eyebrow">{page ? 'The goal' : 'About this platform'}</p>
         <h2>{page ? 'Understand the opportunity before you join.' : 'Rishabh Mishra helps people find jobs and understand jobs before joining.'}</h2>
-        <p>{page ? 'Every opportunity deserves context. This platform shares practical details about eligibility, application steps, expected work, salary, routine, pressure, and growth so students and job seekers can move forward with clarity.' : 'This platform brings together private job updates, government job alerts, work-from-home openings, internships, and honest job experience vlogs. The goal is to help people understand both the opportunity and the real experience before they apply or join.'}</p>
+        <p>{page ? 'The directory summarizes selected opportunities and links to the source page for current requirements and application details. Career and fresher-guidance videos provide a separate view of job-related topics; they are not a substitute for an employer’s official information.' : 'Browse recent job listings, source links, practical application-safety guidance, and career videos. Confirm the details of each opportunity with its employer or linked source before applying.'}</p>
       </div>
       <div className="topics" aria-label="Channel topics">
         {['Vlogs', 'Private Jobs', 'Government Jobs', 'Work From Home', 'Internships', 'Job Reviews', 'Shorts'].map((topic) => <span key={topic}>{topic}</span>)}

@@ -11,6 +11,31 @@ export const getTimeAgo = (dateValue) => {
   return `${months} month${months === 1 ? '' : 's'} ago`;
 };
 
+export const isValidExternalUrl = (value) => {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && Boolean(url.hostname);
+  } catch {
+    return false;
+  }
+};
+
+export const isJobCurrent = (job, now = new Date()) => {
+  const addedAt = new Date(job.postedAt);
+  const ageInDays = (now.getTime() - addedAt.getTime()) / 86400000;
+  if (!Number.isFinite(ageInDays) || ageInDays < 0 || ageInDays > 14 || !isValidExternalUrl(job.url)) return false;
+
+  const deadlineMatch = job.deadline.match(/^(\d{1,2}\s+[A-Za-z]+\s+\d{4})$/);
+  if (!deadlineMatch) return true;
+
+  const deadline = new Date(deadlineMatch[1]);
+  deadline.setHours(23, 59, 59, 999);
+  return Number.isFinite(deadline.getTime()) && deadline >= now;
+};
+
+export const getDeadlineLabel = (deadline) =>
+  /^apply soon$/i.test(deadline) ? 'Not specified — check source' : deadline;
+
 export const getJobText = (job) =>
   [job.title, job.company, job.category, job.type, job.location, ...job.details].join(' ').toLowerCase();
 
@@ -22,5 +47,3 @@ export const pageFromPath = (pathname) => {
   if (cleanPath.endsWith('/contact') || cleanPath.endsWith('/contact.html')) return 'contact';
   return 'home';
 };
-
-export const isValidExternalUrl = (value) => /^https?:\/\//.test(value);
