@@ -8,6 +8,7 @@ import '../styles.css';
 
 const pages = ['home', 'vlogs', 'jobs', 'about', 'contact'];
 const pageHref = { home: '/', vlogs: '/vlogs', jobs: '/jobs', about: '/about', contact: '/contact' };
+const whatsAppChannel = 'https://whatsapp.com/channel/0029VbDatQ46xCSRRLsN3l0B';
 const meta = {
   home: ['Rishabh Mishra | Latest Jobs, Job Experiences & Vlogs', 'Recent job listings with source links and career and fresher-guidance videos by Rishabh Mishra.'],
   vlogs: ['Vlogs | Rishabh Mishra', 'Watch career-update and fresher-guidance videos by Rishabh Mishra.'],
@@ -74,6 +75,21 @@ function WhatsAppAssistantButton() {
         </svg>
       </span>
     </a>
+  );
+}
+
+function WhatsAppChannelSection() {
+  return (
+    <section className="whatsapp-channel-section" id="whatsapp-channel" aria-labelledby="whatsapp-channel-title">
+      <div className="whatsapp-channel-copy">
+        <p className="eyebrow">Free career updates</p>
+        <h2 id="whatsapp-channel-title">Join the WhatsApp channel for freshers jobs and career insights</h2>
+        <p>Get additional job alerts, work-from-home opportunities, fresher hiring updates, and practical career insights. Joining is free and optional.</p>
+      </div>
+      <a className="whatsapp-channel-action" href={whatsAppChannel} target="_blank" rel="noopener noreferrer" title="Join the Rishabh Mishra WhatsApp channel for job updates">
+        Join WhatsApp channel
+      </a>
+    </section>
   );
 }
 
@@ -253,6 +269,7 @@ function Home({ navigate }) {
           </div>
         </aside>
       </section>
+      <WhatsAppChannelSection />
       <PagePreview navigate={navigate} />
       <VideoSection navigate={navigate} />
       <JobsCta navigate={navigate} />
@@ -454,6 +471,7 @@ function Jobs() {
         </div>
         {!filteredJobs.length && <p className="empty-state">No matching jobs right now. Try clearing one filter or searching a broader skill.</p>}
       </section>
+      <WhatsAppChannelSection />
       <JobSeekerGuide />
       {selectedJob && <JobDetailsModal job={selectedJob} onClose={() => setSelectedJob(null)} />}
     </>
