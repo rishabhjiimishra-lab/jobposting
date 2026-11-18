@@ -7,7 +7,7 @@ import { getDeadlineLabel, getJobText, getTimeAgo, isJobCurrent, pageFromPath } 
 import '../styles.css';
 
 const pages = ['home', 'vlogs', 'jobs', 'about', 'contact'];
-const pageHref = { home: '/', vlogs: '/vlogs', jobs: '/jobs', about: '/about', contact: '/contact' };
+const pageHref = { home: '/', vlogs: '/vlogs', jobs: '/jobs', about: '/about', contact: '/contact', privacy: '/privacy' };
 const whatsAppChannel = 'https://whatsapp.com/channel/0029VbDatQ46xCSRRLsN3l0B';
 const meta = {
   home: ['Rishabh Mishra | Latest Jobs, Job Experiences & Vlogs', 'Recent job listings with source links and career and fresher-guidance videos by Rishabh Mishra.'],
@@ -15,6 +15,7 @@ const meta = {
   jobs: ['Jobs | Rishabh Mishra', 'Browse recent job listings with source links, clear deadline and salary caveats, and practical checks before applying.'],
   about: ['About | Rishabh Mishra', 'Learn who maintains this independent job directory, how listings are summarized, and how to report corrections.'],
   contact: ['Contact | Rishabh Mishra', 'Contact Rishabh Mishra for job updates, collaborations, and career questions.'],
+  privacy: ['Privacy Policy | Rishabh Mishra', 'Read how this independent career and job directory handles analytics, advertising, links, and personal information.'],
 };
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         {page === 'jobs' && <Jobs />}
         {page === 'about' && <About />}
         {page === 'contact' && <Contact />}
+        {page === 'privacy' && <Privacy />}
       </main>
       <Footer navigate={navigate} homeContact={page === 'home'} />
       <WhatsAppAssistantButton />
@@ -270,6 +272,7 @@ function Home({ navigate }) {
         </aside>
       </section>
       <WhatsAppChannelSection />
+      <CurationGuide navigate={navigate} />
       <PagePreview navigate={navigate} />
       <VideoSection navigate={navigate} />
       <JobsCta navigate={navigate} />
@@ -381,6 +384,41 @@ function JobsCta({ navigate }) {
         </nav>
       </div>
       <a className="primary-action" href="/jobs" onClick={(event) => navigate('jobs', event)}>See more jobs</a>
+    </section>
+  );
+}
+
+function CurationGuide({ navigate }) {
+  return (
+    <section className="section curation-guide" aria-labelledby="curation-guide-title">
+      <p className="eyebrow">How the directory stays useful</p>
+      <h2 id="curation-guide-title">A practical system for reviewing job updates</h2>
+      <div className="curation-grid">
+        <article>
+          <span>01</span>
+          <h3>Source first</h3>
+          <p>Each opportunity is connected to an employer, company-career, LinkedIn, or recruitment-platform source so readers can verify the original listing.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Unknown stays unknown</h3>
+          <p>Missing salary, deadline, or experience details are not invented. The listing clearly marks unavailable information and explains that the source is authoritative.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Freshness with limits</h3>
+          <p>Listings are aged out after 14 days or a stated deadline. This helps maintenance, but it does not replace the reader's final check on the source.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h3>Corrections are welcome</h3>
+          <p>If a role is closed or inaccurate, readers can report the title and source link for review. This improves the directory and helps the next job seeker.</p>
+        </article>
+      </div>
+      <div className="curation-actions">
+        <a className="primary-action" href="/jobs" onClick={(event) => navigate('jobs', event)}>Browse verified source links</a>
+        <a className="secondary-action" href="mailto:rishabhjiimishra@gmail.com?subject=Job%20listing%20correction">Report a correction</a>
+      </div>
     </section>
   );
 }
@@ -728,6 +766,38 @@ function ContactPanel({ simple = false }) {
   );
 }
 
+function Privacy() {
+  return (
+    <>
+      <section className="page-hero">
+        <p className="eyebrow">Privacy Policy</p>
+        <h1>How this website handles information</h1>
+        <p className="page-intro">This policy explains the limited information this independent job directory collects and how third-party services used by the site may process data.</p>
+      </section>
+      <section className="section legal-page" aria-labelledby="privacy-information-title">
+        <article className="legal-content">
+          <h2 id="privacy-information-title">Information collected</h2>
+          <p>This site does not require account registration and does not request passwords, payment information, or government identification. Search terms and selected filters are processed in your browser to help you browse listings. If you choose to email us or open a messaging or social-media service, the provider you contact receives the information you voluntarily provide.</p>
+
+          <h2>Analytics and advertising</h2>
+          <p>The site may use Vercel Analytics and Google AdSense to measure usage and serve advertisements. Google and other advertising providers may use cookies or device identifiers to deliver, measure, and improve ads, subject to their own policies. Where required, users may control advertising personalization through Google ad settings or other consent controls presented on the site.</p>
+
+          <h2>External websites</h2>
+          <p>Job listings, YouTube, WhatsApp, Instagram, and employer sites open or link to third-party services. This site does not control those services and is not responsible for their privacy practices. Review the destination site's privacy notice before submitting personal information or connecting an account.</p>
+
+          <h2>Cookies</h2>
+          <p>Cookies or similar technologies may be used by analytics, advertising, or embedded-video providers. You can generally manage cookies through your browser settings. Disabling cookies may affect the availability or behavior of third-party features.</p>
+
+          <h2>Corrections and contact</h2>
+          <p>To ask about this policy or request removal or correction of information you submitted, email <a href="mailto:rishabhjiimishra@gmail.com">rishabhjiimishra@gmail.com</a>. Do not include passwords, PINs, one-time passcodes, bank details, or sensitive identity documents in a message.</p>
+
+          <p className="legal-updated">Effective date: November 18, 2026</p>
+        </article>
+      </section>
+    </>
+  );
+}
+
 function Footer({ navigate, homeContact }) {
   return (
     <footer className="site-footer" id="contact">
@@ -744,6 +814,7 @@ function Footer({ navigate, homeContact }) {
       <span>&copy; 2026 Rishabh Mishra</span>
       <nav className="footer-links" aria-label="Footer navigation">
         {pages.map((item) => <a key={item} href={pageHref[item]} onClick={(event) => navigate(item, event)}>{item[0].toUpperCase() + item.slice(1)}</a>)}
+        <a href="/privacy" onClick={(event) => navigate('privacy', event)}>Privacy</a>
         <a href={youtubeChannel} target="_blank" rel="noreferrer">YouTube</a>
       </nav>
     </footer>

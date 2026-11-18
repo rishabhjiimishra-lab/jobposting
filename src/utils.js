@@ -45,5 +45,6 @@ export const pageFromPath = (pathname) => {
   if (cleanPath.endsWith('/jobs') || cleanPath.endsWith('/jobs.html')) return 'jobs';
   if (cleanPath.endsWith('/about') || cleanPath.endsWith('/about.html')) return 'about';
   if (cleanPath.endsWith('/contact') || cleanPath.endsWith('/contact.html')) return 'contact';
+  if (cleanPath.endsWith('/privacy') || cleanPath.endsWith('/privacy.html')) return 'privacy';
   return 'home';
 };

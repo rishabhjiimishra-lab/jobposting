@@ -6,13 +6,15 @@
     { "source": "/vlogs.html", "destination": "/vlogs", "permanent": true },
     { "source": "/jobs.html", "destination": "/jobs", "permanent": true },
     { "source": "/about.html", "destination": "/about", "permanent": true },
-    { "source": "/contact.html", "destination": "/contact", "permanent": true }
+    { "source": "/contact.html", "destination": "/contact", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true }
   ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/vlogs", "destination": "/vlogs.html" },
     { "source": "/jobs", "destination": "/jobs.html" },
     { "source": "/about", "destination": "/about.html" },
-    { "source": "/contact", "destination": "/contact.html" }
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/privacy", "destination": "/privacy.html" }
   ]
 }

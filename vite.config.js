@@ -13,6 +13,7 @@ export default defineConfig({
         jobs: resolve(__dirname, 'jobs.html'),
         about: resolve(__dirname, 'about.html'),
         contact: resolve(__dirname, 'contact.html'),
+        privacy: resolve(__dirname, 'privacy.html'),
       },
       output: {
         manualChunks: {
